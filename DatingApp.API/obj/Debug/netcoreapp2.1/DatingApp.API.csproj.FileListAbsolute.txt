@@ -39,4 +39,3 @@ c:\dev\DatingApp\DatingApp.API\obj\Debug\netcoreapp2.1\DatingApp.API.AssemblyInf
 c:\dev\DatingApp\DatingApp.API\obj\Debug\netcoreapp2.1\DatingApp.API.RazorTargetAssemblyInfo.cache
 c:\dev\DatingApp\DatingApp.API\obj\Debug\netcoreapp2.1\DatingApp.API.dll
 c:\dev\DatingApp\DatingApp.API\obj\Debug\netcoreapp2.1\DatingApp.API.pdb
-c:\dev\Dating-App\DatingApp.API\obj\Debug\netcoreapp2.1\DatingApp.API.csprojAssemblyReference.cache
