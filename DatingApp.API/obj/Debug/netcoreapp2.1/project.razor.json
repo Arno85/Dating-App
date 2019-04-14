@@ -1,5 +1,5 @@
 {
-  "ProjectFilePath": "c:\\dev\\dating-app\\DatingApp.API.csproj",
+  "ProjectFilePath": "c:\\dev\\dating-app\\DatingApp.API\\DatingApp.API.csproj",
   "TargetFramework": "netcoreapp2.1",
   "TagHelpers": [],
   "Configuration": {
