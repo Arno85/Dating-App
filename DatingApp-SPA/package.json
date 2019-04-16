@@ -7,7 +7,9 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "clean": "gulp clean-scss && gulp clean-html",
+    "check": "gulp clean-scss && gulp clean-html && ng lint && ng build --prod --aot --build-optimizer --common-chunk && ng test"
   },
   "private": true,
   "dependencies": {
@@ -46,6 +48,10 @@
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
-    "typescript": "~3.2.2"
+    "typescript": "~3.2.2",
+    "gulp": "^3.9.1",
+    "gulp-csscomb": "^3.0.8",
+    "gulp-notify": "^3.2.0",
+    "gulp-pretty-html": "^2.0.9"
   }
 }
