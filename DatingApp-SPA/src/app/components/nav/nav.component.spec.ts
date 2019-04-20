@@ -43,17 +43,17 @@ describe('NavComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  /*
-  it(`should have as title 'DatingApp-SPA'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
+
+  it(`should have as title 'Dating App'`, () => {
+    const fixture = TestBed.createComponent(NavComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('DatingApp-SPA');
+    expect(app.title).toEqual('Dating App');
   });
 
-  it('should render title in a h1 tag', () => {
-    const fixture = TestBed.createComponent(AppComponent);
+  it('should render title in a a tag with class "navbar-brand"', () => {
+    const fixture = TestBed.createComponent(NavComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to DatingApp-SPA!');
-  });*/
+    expect(compiled.querySelector('.navbar-brand').textContent).toContain('Dating App');
+  });
 });

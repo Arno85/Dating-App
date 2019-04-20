@@ -2,13 +2,14 @@ import { Component } from '@angular/core';
 import { UserToRegister } from '../../../shared/dtos/auth/UserToRegister';
 import { Router } from '@angular/router';
 import { AuthLogicService } from 'src/shared/services/auth/logic/auth-logic.service';
+import { IRegister } from 'src/shared/services/auth/logic/IRegister';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent {
+export class RegisterComponent implements IRegister {
 
   /* #region [PublicProperties] */
   public userToRegister: UserToRegister = new UserToRegister();

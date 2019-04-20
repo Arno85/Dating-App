@@ -7,11 +7,13 @@ import { AuthDataService } from '../data/auth-data.service';
 import { StorageService } from '../../storage/storage.service';
 import { UserToLogin } from 'src/shared/dtos/auth/UserToLogin';
 import { UserToRegister } from 'src/shared/dtos/auth/UserToRegister';
+import { ILogin } from './ILogin';
+import { IRegister } from './IRegister';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthLogicService {
+export class AuthLogicService implements ILogin, IRegister {
 
   /* #region [PrivateProperties] */
   private _username: BehaviorSubject<string> = new BehaviorSubject<string>('');
@@ -61,6 +63,10 @@ export class AuthLogicService {
 
   public getUsernameFromStorage(): string {
     return this._storageService.getItemFromLocalStorage('username');
+  }
+
+  public userAlreadyExist(username: string): boolean {
+    return false;
   }
   /* #endregion */
 

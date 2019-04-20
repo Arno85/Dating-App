@@ -28,5 +28,9 @@ export class AuthDataService {
   public register(userToRegister: UserToRegister): Observable<UserToRegister> {
     return this._http.post<UserToRegister>(`${this._apiUrl}${this._controller}register`, userToRegister);
   }
+
+  public userAlreadyExist(username: string): Observable<boolean> {
+    throw new Error('Method not implemented.');
+  }
   /* #endregion */
 }
