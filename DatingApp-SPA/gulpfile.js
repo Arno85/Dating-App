@@ -26,8 +26,11 @@ gulp.task('clean-html', function () {
         .pipe(prettyHtml({
             indent_size: 2,
             indent_char: ' ',
-            unformatted: ['code', 'pre', 'em', 'strong', 'span', 'i', 'b', 'br'],
-            wrap_attributes: 'force'
+            end_with_newline: true,
+            preserve_newlines: true,
+            max_preserve_newlines: 1,
+            unformatted: ['code', 'pre', 'em', 'strong', 'i', 'b', 'br'],
+            wrap_attributes: 'force-aligned'
         }))
         .pipe(gulp.dest(`${srcPath}`))
         .pipe(notify(
