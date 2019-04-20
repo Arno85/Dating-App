@@ -10,7 +10,7 @@ import { LoginComponent } from './login/login.component';
 
 @NgModule({
   imports: [
-  CommonModule,
+    CommonModule,
     FormsModule,
     RouterModule
   ],
