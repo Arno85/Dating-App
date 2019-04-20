@@ -1,0 +1,44 @@
+<div class="login-container">
+
+  <div *ngIf="loggedIn()"
+       class="dropdown">
+    <a class="dropdown-toggle text-light text-capitalize">
+      Welcome {{ username }}
+    </a>
+    <div class="dropdown-menu">
+      <a class="dropdown-item"
+         href="#"><i class="fa fa-user"></i>Edit Profile</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item"
+         href="#"
+         (click)="logout()"><i class="fa fa-sign-out"></i>Logout</a>
+    </div>
+    <a class="dropdown-item"
+         href="#"
+         (click)="logout()"><i class="fa fa-sign-out"></i>Logout</a>
+  </div>
+
+  <form *ngIf="!loggedIn()"
+        #loginForm="ngForm"
+        class="form-inline my-2 my-lg-0"
+        (ngSubmit)="login()">
+    <input class="form-control mr-sm-2"
+           type="text"
+           name="username"
+           placeholder="Username"
+           required
+           [(ngModel)]="userToLogin.username" />
+    <input class="form-control mr-sm-2"
+           type="password"
+           name="password"
+           placeholder="Password"
+           required
+           [(ngModel)]="userToLogin.password" />
+    <button [disabled]="!loginForm.valid"
+            class="btn btn-success my-2 my-sm-0"
+            type="submit">
+      Login
+    </button>
+  </form>
+
+</div>
