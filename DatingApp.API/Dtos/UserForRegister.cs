@@ -16,11 +16,11 @@ namespace DatingApp.API.Dtos
 		[StringLength(
 			16,
 			MinimumLength = 6,
-			ErrorMessage = "You must specify password between 6 and 16 characters"
+			ErrorMessage = "You must specify password between 6 and 16 characters."
 		)]
 		[RegularExpression(
 			"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?\\d)(?=.*?\\W).*$",
-			ErrorMessage = "The Password must contains at least one uppercase letter, one lowercase letter, one digit and one special character"
+			ErrorMessage = "The Password must contains at least one uppercase letter, one lowercase letter, one digit and one special character."
 		)]
 		public string Password { get; set; }
 	}
