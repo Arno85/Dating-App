@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
-import { Token } from 'src/app/models/auth/token';
-import { UserToLogin } from 'src/app/dtos/auth/UserToLogin';
+import { Token } from 'src/shared/models/auth/token';
+import { UserToLogin } from 'src/shared/dtos/auth/UserToLogin';
 import { UserToRegister } from '../../../dtos/auth/UserToRegister';
 
 @Injectable({

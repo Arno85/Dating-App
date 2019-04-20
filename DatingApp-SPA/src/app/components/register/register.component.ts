@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { UserToRegister } from './../../dtos/auth/UserToRegister';
+import { UserToRegister } from '../../../shared/dtos/auth/UserToRegister';
 import { Router } from '@angular/router';
-import { AuthLogicService } from 'src/app/services/auth/logic/auth-logic.service';
+import { AuthLogicService } from 'src/shared/services/auth/logic/auth-logic.service';
 
 @Component({
   selector: 'app-register',

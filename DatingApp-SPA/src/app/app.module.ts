@@ -1,12 +1,13 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserModule } from '@angular/platform-browser';
+import { HomeModule } from './components/home/home.module';
 import { HttpClientModule } from '@angular/common/http';
 import { NavModule } from './components/nav/nav.module';
-import { HomeModule } from './components/home/home.module';
+import { NgModule } from '@angular/core';
 import { RegisterModule } from './components/register/register.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { errorInterceptorProvider } from 'src/shared/http-interceptors/error-interceptor';
 
 @NgModule({
    declarations: [
@@ -21,7 +22,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       RegisterModule,
       BrowserAnimationsModule
    ],
-   providers: [],
+   providers: [
+      errorInterceptorProvider
+   ],
    bootstrap: [
       AppComponent
    ]
