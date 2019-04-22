@@ -6,13 +6,15 @@ import { RouterModule } from '@angular/router';
 import { AuthLogicService } from 'src/shared/services/auth/logic/auth-logic.service';
 import { AuthDataService } from 'src/shared/services/auth/data/auth-data.service';
 import { LoginComponent } from './login/login.component';
+import { BsDropdownModule } from 'ngx-bootstrap';
 
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    BsDropdownModule.forRoot()
   ],
   declarations: [
     NavComponent,

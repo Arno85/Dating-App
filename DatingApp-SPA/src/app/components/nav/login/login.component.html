@@ -1,21 +1,17 @@
 <div class="login-container">
 
   <div *ngIf="loggedIn()"
-       class="dropdown">
-    <a class="dropdown-toggle text-light text-capitalize">
-      Welcome {{ username }}
+       class="dropdown"
+       dropdown>
+    <a class="dropdown-toggle text-light" dropdownToggle>
+      Welcome {{ username | titlecase}}
     </a>
-    <div class="dropdown-menu">
-      <a class="dropdown-item"
-         href="#"><i class="fa fa-user"></i>Edit Profile</a>
+    <div class="dropdown-menu mt-3" *dropdownMenu>
+      <a class="dropdown-item"><i class="fa fa-user"></i>Edit Profile</a>
       <div class="dropdown-divider"></div>
       <a class="dropdown-item"
-         href="#"
          (click)="logout()"><i class="fa fa-sign-out"></i>Logout</a>
     </div>
-    <a class="dropdown-item"
-         href="#"
-         (click)="logout()"><i class="fa fa-sign-out"></i>Logout</a>
   </div>
 
   <form *ngIf="!loggedIn()"

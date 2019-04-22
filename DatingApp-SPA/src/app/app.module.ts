@@ -8,13 +8,14 @@ import { NavModule } from './components/nav/nav.module';
 import { NgModule } from '@angular/core';
 import { RegisterModule } from './components/register/register.module';
 import { errorInterceptorProvider } from 'src/shared/http-interceptors/error-interceptor';
+import { NotificationsService } from './../shared/services/notifications/notifications.service';
 
 @NgModule({
    declarations: [
       AppComponent
    ],
    imports: [
-      BrowserModule,
+   BrowserModule,
       HttpClientModule,
       AppRoutingModule,
       NavModule,
@@ -23,7 +24,8 @@ import { errorInterceptorProvider } from 'src/shared/http-interceptors/error-int
       BrowserAnimationsModule
    ],
    providers: [
-      errorInterceptorProvider
+      errorInterceptorProvider,
+      NotificationsService
    ],
    bootstrap: [
       AppComponent
