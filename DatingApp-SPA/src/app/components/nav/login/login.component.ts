@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit, ILogin {
 
   /* #region [PublicMethods] */
   constructor(
-    private _authLogicService: AuthLogicService
+    private _authLogicService: AuthLogicService,
   ) { }
 
   public ngOnInit(): void  {}
@@ -28,7 +28,8 @@ export class LoginComponent implements OnInit, ILogin {
 
   public loggedIn(): boolean {
     this.username = this._authLogicService.getUsername();
-    return this._authLogicService.loggedIn();
+    const loggedIn = this._authLogicService.loggedIn();
+    return loggedIn;
   }
 
   public logout(): void {
@@ -36,3 +37,4 @@ export class LoginComponent implements OnInit, ILogin {
   }
   /* #endregion */
 }
+
