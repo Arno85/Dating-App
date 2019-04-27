@@ -37,7 +37,7 @@ export class ErrorInterceptor implements HttpInterceptor {
               for (const key in serverError) {
                 if (serverError[key]) {
                   serverError[key].forEach((value: string) => {
-                    modalStateErrors += `- ${value}\n`;
+                    modalStateErrors += `${value}\n`;
                   });
                 }
               }

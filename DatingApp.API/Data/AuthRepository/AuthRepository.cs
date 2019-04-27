@@ -46,7 +46,7 @@ namespace DatingApp.API.Data
 			return user;
 		}
 
-		public async Task<bool> UserExists(string username)
+		public async Task<bool> UsernameExists(string username)
 		{
 			if (await _context.Users.AnyAsync(x => x.Username == username))
 			{
@@ -56,7 +56,17 @@ namespace DatingApp.API.Data
 			return false;
 		}
 
-		private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+        public async Task<bool> EmailExists(string email)
+        {
+            if (await _context.Users.AnyAsync(x => x.Email == email))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
 		{
 			using (var hmac = new System.Security.Cryptography.HMACSHA512())
 			{

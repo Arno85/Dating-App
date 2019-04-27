@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthLogicService } from './../../../shared/services/auth/logic/auth-logic.service';
 
 @Component({
   selector: 'app-nav',
@@ -8,10 +9,11 @@ import { Component, OnInit } from '@angular/core';
 export class NavComponent implements OnInit {
 
   public title = 'Dating App';
+  public showLinks: boolean;
 
-  constructor() { }
+  constructor(private _authLogicService: AuthLogicService) { }
 
   public ngOnInit(): void {
+    this.showLinks = this._authLogicService.loggedIn();
   }
-
 }

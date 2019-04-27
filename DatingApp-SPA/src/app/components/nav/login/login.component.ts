@@ -10,35 +10,31 @@ import { ILogin } from 'src/shared/services/auth/logic/ILogin';
 })
 export class LoginComponent implements OnInit, ILogin {
 
-  /* #region [Public Properties] */
+  /* #region [PublicProperties] */
   public userToLogin: UserToLogin = new UserToLogin();
-  public username = '';
+  public username: string;
   /* #endregion */
 
   /* #region [PublicMethods] */
   constructor(
-    private _authLogicService: AuthLogicService
+    private _authLogicService: AuthLogicService,
   ) { }
 
-  public ngOnInit(): void  {
-    this._setUpEvent();
-  }
+  public ngOnInit(): void  {}
 
   public login(): void {
     this._authLogicService.login(this.userToLogin);
   }
 
   public loggedIn(): boolean {
-    this.username = this._authLogicService.getUsernameFromStorage();
-    return this._authLogicService.loggedIn();
+    this.username = this._authLogicService.getUsername();
+    const loggedIn = this._authLogicService.loggedIn();
+    return loggedIn;
   }
 
   public logout(): void {
     this._authLogicService.logout();
   }
-
-  public _setUpEvent(): void {
-    this._authLogicService.getUsername().subscribe(value => this.username = value);
-  }
   /* #endregion */
 }
+
