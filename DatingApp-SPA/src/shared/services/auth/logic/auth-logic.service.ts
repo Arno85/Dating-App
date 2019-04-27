@@ -58,7 +58,7 @@ export class AuthLogicService implements ILogin, IRegister {
         password: userToRegister.password
       } as UserToLogin;
       this.login(user);
-      this.registered.next(true);
+      // this.registered.next(true);
       this._notificationsService.success('Registration Succesful');
     }, (error: string) => {
       console.log(error);

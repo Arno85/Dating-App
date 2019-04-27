@@ -31,16 +31,17 @@ export class RegisterComponent implements IRegister, OnDestroy {
   }
 
   public register(): void {
-    this._authLogicService.register(this.userToRegister);
-    this._subscription.add(this._authLogicService.registered.subscribe(value => {
+    const res = this._authLogicService.register(this.userToRegister);
+    console.log(res);
+    /*this._subscription.add(this._authLogicService.registered.subscribe(value => {
       if (value) {
-        this._router.navigateByUrl('home');
+        this._router.navigate(['/home']);
       }
-    }));
+    }));*/
   }
 
   public cancel(): void {
-    this._router.navigateByUrl('home');
+    this._router.navigate(['/home']);
   }
   /* #endregion */
 
