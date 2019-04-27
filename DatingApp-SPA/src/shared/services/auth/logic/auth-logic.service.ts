@@ -9,29 +9,36 @@ import { UserToLogin } from 'src/shared/dtos/auth/UserToLogin';
 import { UserToRegister } from 'src/shared/dtos/auth/UserToRegister';
 import { ILogin } from './ILogin';
 import { IRegister } from './IRegister';
+import { NotificationsService } from '../../notifications/notifications.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthLogicService implements ILogin, IRegister {
 
+  /* #region [PublicProperties] */
+  public registered = new BehaviorSubject<boolean>(false);
+  /* #endregion */
+
   /* #region [PrivateProperties] */
-  private _username: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  private _username = '';
+  private _jwtHelperService: JwtHelperService = new JwtHelperService();
   /* #endregion */
 
   /* #region [PublicMethods] */
   constructor(
     private _authDataService: AuthDataService,
-    private _storageService: StorageService
+    private _storageService: StorageService,
+    private _notificationsService: NotificationsService
   ) { }
 
   public login(userToLogin: UserToLogin): void {
     this._authDataService.login(userToLogin).subscribe((response: Token) => {
       this._storageService.setItemToLocalStorage('token', response.token);
-      this._storageService.setItemToLocalStorage('username', userToLogin.username);
-      this._setUsername(userToLogin.username);
-    }, (error: HttpErrorResponse) => {
+    }, (error: string) => {
       console.log(error);
+      this._notificationsService.error(error);
     });
   }
 
@@ -41,7 +48,7 @@ export class AuthLogicService implements ILogin, IRegister {
 
   public loggedIn(): boolean {
     const token = this._storageService.getItemFromLocalStorage('token');
-    return !!token;
+    return !this._jwtHelperService.isTokenExpired(token);
   }
 
   public register(userToRegister: UserToRegister): void {
@@ -51,28 +58,25 @@ export class AuthLogicService implements ILogin, IRegister {
         password: userToRegister.password
       } as UserToLogin;
       this.login(user);
-      this._setUsername(user.username);
-    }, (error: HttpErrorResponse) => {
+      this.registered.next(true);
+      this._notificationsService.success('Registration Succesful');
+    }, (error: string) => {
       console.log(error);
+      this._notificationsService.error(error);
     });
   }
 
-  public getUsername(): Observable<string> {
-    return this._username.asObservable();
-  }
-
-  public getUsernameFromStorage(): string {
-    return this._storageService.getItemFromLocalStorage('username');
+  public getUsername(): string {
+    const token = this._storageService.getItemFromLocalStorage('token');
+    const decodedToken = this._jwtHelperService.decodeToken(token);
+    if (decodedToken) {
+      this._username = decodedToken.unique_name;
+    }
+    return this._username;
   }
 
   public userAlreadyExist(username: string): boolean {
     return false;
-  }
-  /* #endregion */
-
-  /* #region [PrivateMethods] */
-  private _setUsername(value: string): void {
-    this._username.next(value);
   }
   /* #endregion */
 }

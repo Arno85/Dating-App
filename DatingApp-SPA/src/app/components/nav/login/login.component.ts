@@ -10,9 +10,9 @@ import { ILogin } from 'src/shared/services/auth/logic/ILogin';
 })
 export class LoginComponent implements OnInit, ILogin {
 
-  /* #region [Public Properties] */
+  /* #region [PublicProperties] */
   public userToLogin: UserToLogin = new UserToLogin();
-  public username = '';
+  public username: string;
   /* #endregion */
 
   /* #region [PublicMethods] */
@@ -20,25 +20,19 @@ export class LoginComponent implements OnInit, ILogin {
     private _authLogicService: AuthLogicService
   ) { }
 
-  public ngOnInit(): void  {
-    this._setUpEvent();
-  }
+  public ngOnInit(): void  {}
 
   public login(): void {
     this._authLogicService.login(this.userToLogin);
   }
 
   public loggedIn(): boolean {
-    this.username = this._authLogicService.getUsernameFromStorage();
+    this.username = this._authLogicService.getUsername();
     return this._authLogicService.loggedIn();
   }
 
   public logout(): void {
     this._authLogicService.logout();
-  }
-
-  public _setUpEvent(): void {
-    this._authLogicService.getUsername().subscribe(value => this.username = value);
   }
   /* #endregion */
 }
