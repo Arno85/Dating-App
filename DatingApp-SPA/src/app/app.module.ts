@@ -12,13 +12,14 @@ import { NotificationsService } from './../shared/services/notifications/notific
 import { MatchesModule } from './components/matches/matches.module';
 import { MessagesModule } from './components/messages/messages.module';
 import { ListsModule } from './components/lists/lists.module';
+import { AuthGuard } from 'src/shared/guards/auth.guard';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-    BrowserModule,
+  BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -31,7 +32,8 @@ import { ListsModule } from './components/lists/lists.module';
   ],
   providers: [
     errorInterceptorProvider,
-    NotificationsService
+    NotificationsService,
+    AuthGuard
   ],
   bootstrap: [
     AppComponent

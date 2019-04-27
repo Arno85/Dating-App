@@ -11,6 +11,7 @@ import { ILogin } from './ILogin';
 import { IRegister } from './IRegister';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -30,12 +31,14 @@ export class AuthLogicService implements ILogin, IRegister {
   constructor(
     private _authDataService: AuthDataService,
     private _storageService: StorageService,
-    private _notificationsService: NotificationsService
+    private _notificationsService: NotificationsService,
+    private _router: Router
   ) { }
 
   public login(userToLogin: UserToLogin): void {
     this._authDataService.login(userToLogin).subscribe((response: Token) => {
       this._storageService.setItemToLocalStorage('token', response.token);
+      this._router.navigate(['/matches']);
     }, (error: string) => {
       console.log(error);
       this._notificationsService.error(error);
@@ -44,6 +47,7 @@ export class AuthLogicService implements ILogin, IRegister {
 
   public logout(): void {
     this._storageService.removeItemFromLocalStorage('token');
+    this._router.navigate(['']);
   }
 
   public loggedIn(): boolean {
