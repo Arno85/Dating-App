@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using DatingApp.API.Models;
+using DatingApp.API.Models.Users;
 using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.API.Data
@@ -66,7 +66,7 @@ namespace DatingApp.API.Data
             return false;
         }
 
-        private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+        public void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
 		{
 			using (var hmac = new System.Security.Cryptography.HMACSHA512())
 			{

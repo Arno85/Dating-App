@@ -1,4 +1,4 @@
-﻿using DatingApp.API.Models;
+﻿using DatingApp.API.Models.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,5 +15,7 @@ namespace DatingApp.API.Data
 		Task<bool> UsernameExists(string username);
 
         Task<bool> EmailExists(string email);
+
+        void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt);
     }
 }
