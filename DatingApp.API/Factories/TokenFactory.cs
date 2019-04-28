@@ -1,5 +1,5 @@
-﻿using DatingApp.API.Dtos;
-using DatingApp.API.Models;
+﻿using DatingApp.API.Dtos.Auth;
+using DatingApp.API.Models.Users;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;

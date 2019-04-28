@@ -1,4 +1,4 @@
-﻿using DatingApp.API.Models;
+﻿using DatingApp.API.Models.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using System;

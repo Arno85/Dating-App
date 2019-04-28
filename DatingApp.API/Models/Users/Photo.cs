@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DatingApp.API.Models
+namespace DatingApp.API.Models.Users
 {
     public class Photo
     {
@@ -12,7 +12,7 @@ namespace DatingApp.API.Models
 
         public DateTime DateAdded { get; set; }
 
-        public Boolean IsMain { get; set; }
+        public bool IsMain { get; set; }
 
         public User User { get; set; }
 

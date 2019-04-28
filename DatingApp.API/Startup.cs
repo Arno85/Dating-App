@@ -4,7 +4,10 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using DatingApp.API.Data;
+using DatingApp.API.Data.Seeds;
+using DatingApp.API.Data.UsersRepository;
 using DatingApp.API.Factories.TokenFactory;
 using DatingApp.API.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -37,10 +40,19 @@ namespace DatingApp.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                .AddJsonOptions(opt =>
+                {
+                    opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                });
             services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 			// Add Cross Origin
 			services.AddCors();
+            //
+            services.AddAutoMapper();
+            // Seed the database with stub data
+            services.AddTransient<Seed>();
 			// Add the Dependency Injection for the Auth Repository
 			/* NOTES -> 3 possibilities :
             - AddSingleton add the dependency injection with a SINGLE instance of the object. Same instance used across the app.
@@ -50,9 +62,10 @@ namespace DatingApp.API
             */
 			services.AddScoped<IAuthRepository, AuthRepository>();
 			services.AddScoped<ITokenFactory, TokenFactory>();
+            services.AddScoped<IUsersRepository, UsersRepository>();
 
-			// Set Authentication
-			setAuthentication(services);
+            // Set Authentication
+            setAuthentication(services);
 
 			// Set Authorize Attribute to all controllers
 			services.AddMvc(o =>
@@ -65,10 +78,12 @@ namespace DatingApp.API
 		}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, Seed seeder)
         {
             if (env.IsDevelopment())
             {
+                // Populate the database with stub data
+                // seeder.SeedUsers();
                 app.UseDeveloperExceptionPage();
             }
             else
