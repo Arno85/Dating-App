@@ -3,21 +3,25 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { MatchesComponent } from './matches.component';
+import { MatchesDetailComponent } from './matches-detail.component';
 
-describe('MatchesComponent', () => {
-  let component: MatchesComponent;
-  let fixture: ComponentFixture<MatchesComponent>;
+describe('MatchesDetailComponent', () => {
+  let component: MatchesDetailComponent;
+  let fixture: ComponentFixture<MatchesDetailComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MatchesComponent ]
+      imports: [
+        NgxGalleryModule,
+        TabsModule.forRoot()
+      ],
+      declarations: [ MatchesDetailComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MatchesComponent);
+    fixture = TestBed.createComponent(MatchesDetailComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,0 +1,57 @@
+.card {
+  .img-thumbnail{
+    margin: 25px;
+    width: calc(100% - 50px);
+    height: auto;
+  }
+
+  .card-body {
+    padding: 0 25px;
+  }
+
+  .card-footer {
+    padding: 10px 25px;
+    background-color: #fff;
+    border-top: none;
+  }
+}
+
+.tab-panel {
+  border: 1px solid #ddd;
+  padding: 10px 25px;
+  border-radius: 4px;
+
+  .nav-tabs > li {
+    position: relative;
+
+    a {
+      border: 0;
+      cursor: default;
+    }
+
+    &.active {
+      border-bottom: 4px solid #F3969A;
+
+      a {
+        color: #F3969A;
+      }
+    }
+
+    &:hover:not(.active) {
+      border-bottom: 4px solid #78C2AD;
+
+      a {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .tab-content {
+    padding: 40px 0 0;
+
+    p {
+      margin-bottom: 40px;
+    }
+  }
+}
+
