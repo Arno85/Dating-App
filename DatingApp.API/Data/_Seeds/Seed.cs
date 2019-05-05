@@ -20,7 +20,7 @@ namespace DatingApp.API.Data.Seeds
 
         public void SeedUsers()
         {
-            var userData = System.IO.File.ReadAllText("Data/Seeds/UserSeedData.json");
+            var userData = System.IO.File.ReadAllText("Data/_Seeds/UserSeedData.json");
             var users = JsonConvert.DeserializeObject<List<User>>(userData);
 
             foreach(var user in users)

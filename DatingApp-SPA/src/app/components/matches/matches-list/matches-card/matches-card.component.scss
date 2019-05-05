@@ -1,0 +1,54 @@
+$transition-duration: 400ms;
+
+.card
+{
+    &:hover .card-img-wrapper img
+    {
+        transform: scale(1.2, 1.2);
+
+        opacity: .7;
+    }
+
+    &:hover .card-img-wrapper ul
+    {
+        bottom: 0;
+
+        opacity: 1;
+    }
+
+    .card-img-wrapper
+    {
+        position: relative;
+
+        overflow: hidden;
+
+        & > *
+        {
+            transition-timing-function: ease-in;
+            transition-duration: $transition-duration;
+        }
+
+        &:hover > *
+        {
+            transition-timing-function: ease-out;
+            transition-duration: $transition-duration;
+        }
+
+        img
+        {
+            width: 100%;
+
+            transform: scale(1, 1);
+        }
+
+        ul
+        {
+            position: absolute;
+            bottom: -30%;
+
+            width: 100%;
+
+            opacity: 0;
+        }
+    }
+}
