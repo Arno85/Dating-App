@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { MatchesCardComponent } from './matches-card.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('MatchesCardComponent', () => {
   let component: MatchesCardComponent;
@@ -11,7 +12,12 @@ describe('MatchesCardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MatchesCardComponent ]
+      imports: [
+        RouterTestingModule
+      ],
+      declarations: [
+        MatchesCardComponent
+      ]
     })
     .compileComponents();
   }));

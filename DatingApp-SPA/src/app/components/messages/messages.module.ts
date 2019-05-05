@@ -3,7 +3,9 @@ import { CommonModule } from '@angular/common';
 import { MessagesComponent } from './messages.component';
 
 @NgModule({
-  declarations: [MessagesComponent],
+  declarations: [
+    MessagesComponent
+  ],
   imports: [
     CommonModule
   ],

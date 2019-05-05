@@ -10,7 +10,9 @@
 
     <div class="col-sm-4">
       <div class="card">
-        <img [src]="user.photoUrl" [alt]="user.username" class="card-img-top img-thumbnail">
+        <img [src]="user.photoUrl"
+             [alt]="user.username"
+             class="card-img-top img-thumbnail">
 
         <div class="card-body">
           <div>
@@ -55,7 +57,8 @@
             <p>{{ user.interests }}</p>
           </tab>
           <tab heading="Photos">
-            <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+            <ngx-gallery [options]="galleryOptions"
+                         [images]="galleryImages"></ngx-gallery>
           </tab>
           <tab heading="Messages">
             <p>Messages will go here</p>

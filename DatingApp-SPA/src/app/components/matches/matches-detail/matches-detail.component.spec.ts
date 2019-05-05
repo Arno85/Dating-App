@@ -4,6 +4,12 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { MatchesDetailComponent } from './matches-detail.component';
+import { NgxGalleryModule } from 'ngx-gallery';
+import { TabsModule } from 'ngx-bootstrap';
+import { UsersLogicService } from 'src/app/services/users/logic/users-logic.service';
+import { UsersDataService } from 'src/app/services/users/data/users-data.service';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('MatchesDetailComponent', () => {
   let component: MatchesDetailComponent;
@@ -13,11 +19,19 @@ describe('MatchesDetailComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         NgxGalleryModule,
-        TabsModule.forRoot()
+        TabsModule.forRoot(),
+        RouterTestingModule,
+        HttpClientModule
       ],
-      declarations: [ MatchesDetailComponent ]
+      providers: [
+        UsersLogicService,
+        UsersDataService
+      ],
+      declarations: [
+        MatchesDetailComponent
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

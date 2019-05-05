@@ -1,57 +1,73 @@
-.card {
-  .img-thumbnail{
-    margin: 25px;
-    width: calc(100% - 50px);
-    height: auto;
-  }
+.card
+{
+    .img-thumbnail
+    {
+        width: calc(100% - 50px);
+        height: auto;
+        margin: 25px;
+    }
 
-  .card-body {
-    padding: 0 25px;
-  }
+    .card-body
+    {
+        padding: 0 25px;
+    }
 
-  .card-footer {
-    padding: 10px 25px;
-    background-color: #fff;
-    border-top: none;
-  }
+    .card-footer
+    {
+        padding: 10px 25px;
+
+        border-top: none;
+        background-color: #fff;
+    }
 }
 
-.tab-panel {
-  border: 1px solid #ddd;
-  padding: 10px 25px;
-  border-radius: 4px;
+.tab-panel
+{
+    padding: 10px 25px;
 
-  .nav-tabs > li {
-    position: relative;
+    border: 1px solid #ddd;
+    border-radius: 4px;
 
-    a {
-      border: 0;
-      cursor: default;
+    .nav-tabs > li
+    {
+        position: relative;
+
+        a
+        {
+            cursor: default;
+
+            border: 0;
+        }
+
+        &.active
+        {
+            border-bottom: 4px solid #f3969a;
+
+            a
+            {
+                color: #f3969a;
+            }
+        }
+
+        &:hover:not(.active)
+        {
+            border-bottom: 4px solid #78c2ad;
+
+            a
+            {
+                cursor: pointer;
+            }
+        }
     }
 
-    &.active {
-      border-bottom: 4px solid #F3969A;
+    .tab-content
+    {
+        padding: 40px 0 0;
 
-      a {
-        color: #F3969A;
-      }
+        p
+        {
+            margin-bottom: 40px;
+        }
     }
-
-    &:hover:not(.active) {
-      border-bottom: 4px solid #78C2AD;
-
-      a {
-        cursor: pointer;
-      }
-    }
-  }
-
-  .tab-content {
-    padding: 40px 0 0;
-
-    p {
-      margin-bottom: 40px;
-    }
-  }
 }
 
