@@ -3,7 +3,9 @@ import { CommonModule } from '@angular/common';
 import { ListsComponent } from './lists.component';
 
 @NgModule({
-  declarations: [ListsComponent],
+  declarations: [
+    ListsComponent
+  ],
   imports: [
     CommonModule
   ],

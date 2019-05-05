@@ -19,7 +19,7 @@ namespace DatingApp.API.Data.UsersRepository
 
         public async Task<IEnumerable<User>> GetUsers()
         {
-            return await _context.Users.Include(p => p.Photos).ToListAsync();
+            return await _context.Users.Include(p => p.Photos).OrderBy(x => x.Created).ToListAsync();
         }
     }
 }

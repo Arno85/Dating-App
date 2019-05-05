@@ -45,13 +45,13 @@ describe('NavComponent', () => {
   });
 
   it(`should have as title 'Dating App'`, () => {
-    const fixture = TestBed.createComponent(NavComponent);
+    fixture = TestBed.createComponent(NavComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app.title).toEqual('Dating App');
   });
 
   it('should render title in a a tag with class "navbar-brand"', () => {
-    const fixture = TestBed.createComponent(NavComponent);
+    fixture = TestBed.createComponent(NavComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('.navbar-brand').textContent).toContain('Dating App');

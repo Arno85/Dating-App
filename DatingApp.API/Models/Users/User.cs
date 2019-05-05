@@ -19,7 +19,7 @@ namespace DatingApp.API.Models.Users
 
         public string gender { get; set; }
 
-        public string KnowAs { get; set; }
+        public string KnownAs { get; set; }
 
         public DateTime DateOfBirth { get; set; }
 
