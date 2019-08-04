@@ -4,11 +4,11 @@ import { UsersLogicService } from 'src/app/services/users/logic/users-logic.serv
 import { NotificationsService } from 'src/shared/services/notifications/notifications.service';
 
 @Component({
-  selector: 'app-list-matches',
-  templateUrl: './matches-list.component.html',
-  styleUrls: ['./matches-list.component.scss']
+  selector: 'app-list-members',
+  templateUrl: './members-list.component.html',
+  styleUrls: ['./members-list.component.scss']
 })
-export class MatchesListComponent implements OnInit {
+export class MembersListComponent implements OnInit {
 
   public users: User[] = new Array<User>();
 

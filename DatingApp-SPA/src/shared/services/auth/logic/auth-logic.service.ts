@@ -38,9 +38,8 @@ export class AuthLogicService implements ILogin, IRegister {
   public login(userToLogin: UserToLogin): void {
     this._authDataService.login(userToLogin).subscribe((response: Token) => {
       this._storageService.setItemToLocalStorage('token', response.token);
-      this._router.navigate(['/matches']);
+      this._router.navigate(['/members']);
     }, (error: string) => {
-      console.log(error);
       this._notificationsService.error(error);
     });
   }
@@ -62,10 +61,8 @@ export class AuthLogicService implements ILogin, IRegister {
         password: userToRegister.password
       } as UserToLogin;
       this.login(user);
-      // this.registered.next(true);
       this._notificationsService.success('Registration Succesful');
     }, (error: string) => {
-      console.log(error);
       this._notificationsService.error(error);
     });
   }

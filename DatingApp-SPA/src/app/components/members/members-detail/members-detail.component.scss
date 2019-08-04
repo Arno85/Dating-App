@@ -1,0 +1,60 @@
+.card {
+  padding: 25px;
+
+  .img-thumbnail {
+    width: 100%;
+    height: auto;
+  }
+
+  .card-body {
+    padding: 25px 0;
+  }
+
+  .card-footer {
+    padding: 0;
+
+    border-top: none;
+    background-color: #fff;
+  }
+}
+
+.tab-panel {
+  padding: 10px 25px;
+
+  border: 1px solid #ddd;
+  border-radius: 4px;
+
+  .nav-tabs > li {
+    position: relative;
+
+    a {
+      cursor: default;
+
+      border: 0;
+    }
+
+    &.active {
+      border-bottom: 4px solid #f3969a;
+
+      a {
+        color: #f3969a;
+      }
+    }
+
+    &:hover:not(.active) {
+      border-bottom: 4px solid #78c2ad;
+
+      a {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .tab-content {
+    padding: 40px 0 0;
+
+    p {
+      margin-bottom: 40px;
+    }
+  }
+}

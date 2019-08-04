@@ -1,0 +1,71 @@
+<div class="mt-5 mx-5">
+
+  <div class="row">
+    <div class="col-sm-4">
+      <h1>Your Profile</h1>
+    </div>
+    <div class="col-sm-8">
+      <div class="alert alert-info" *ngIf="editForm.dirty">
+        <strong>Information: </strong>You have made changes. Any unsaved changes will be lost!
+      </div>
+    </div>
+  </div>
+
+  <form class="row" #editForm="ngForm" (ngSubmit)="updateUser()">
+
+    <div class="col-sm-4">
+      <div class="card">
+        <img [src]="user.photoUrl" [alt]="user.username" class="card-img-top img-thumbnail">
+
+        <div class="card-body">
+          <div>
+            <strong>Location:</strong>
+            <div class="form-inline">
+              <input name="city" type="text" class="form-control" [(ngModel)]="user.city">,
+              <input name="country" type="text" class="form-control" [(ngModel)]="user.country">
+            </div>
+          </div>
+          <div>
+            <strong>Age:</strong>
+            <input name="age" type="text" class="form-control" [(ngModel)]="user.age">
+          </div>
+          <div>
+            <strong>Last Active:</strong>
+            <p>{{ user.lastActive | date }}</p>
+          </div>
+          <div>
+            <strong>Member since:</strong>
+            <p>{{ user.created  | date }}</p>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <button [disabled]="!editForm.dirty" class="btn btn-success btn-block">Save</button>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="col-sm-8">
+      <div class="tab-panel">
+        <tabset class="member-tabset">
+          <tab heading="About Yourself">
+            <h4>Description</h4>
+            <textarea name="introduction" rows="6" class="form-control" [(ngModel)]="user.introduction"></textarea>
+            <h4>Looking For</h4>
+            <textarea name="lookingFor" rows="6" class="form-control" [(ngModel)]="user.lookingFor"></textarea>
+          </tab>
+          <tab heading="Interests">
+            <h4>Interests</h4>
+            <textarea name="interests" rows="6" class="form-control" [(ngModel)]="user.interests"></textarea>
+          </tab>
+          <tab heading="Photos">
+            <!--<ngx-gallery [options]="galleryOptions"
+                         [images]="galleryImages"></ngx-gallery>-->
+          </tab>
+        </tabset>
+      </div>
+    </div>
+
+  </form>
+</div>
