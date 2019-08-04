@@ -2,16 +2,16 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
-import { MatchesListComponent } from './matches-list.component';
-import { MatchesCardComponent } from './matches-card/matches-card.component';
+import { MembersListComponent } from './members-list.component';
+import { MembersCardComponent } from './members-card/members-card.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { UsersLogicService } from 'src/app/services/users/logic/users-logic.service';
 import { UsersDataService } from 'src/app/services/users/data/users-data.service';
 import { HttpClientModule } from '@angular/common/http';
 
-describe('MatchesListComponent', () => {
-  let component: MatchesListComponent;
-  let fixture: ComponentFixture<MatchesListComponent>;
+describe('MembersListComponent', () => {
+  let component: MembersListComponent;
+  let fixture: ComponentFixture<MembersListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -20,8 +20,8 @@ describe('MatchesListComponent', () => {
         HttpClientModule
       ],
       declarations: [
-        MatchesListComponent,
-        MatchesCardComponent
+        MembersListComponent,
+        MembersCardComponent
       ],
       providers: [
         UsersLogicService,
@@ -32,7 +32,7 @@ describe('MatchesListComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MatchesListComponent);
+    fixture = TestBed.createComponent(MembersListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

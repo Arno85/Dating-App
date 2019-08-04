@@ -1,14 +1,19 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AuthGuard } from 'src/shared/guards/auth.guard';
+import { AuthGuard } from 'src/shared/guards/auth/auth.guard';
 
 import { HomeComponent } from './components/home/home.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ListsComponent } from './components/lists/lists.component';
 import { MessagesComponent } from './components/messages/messages.component';
-import { MatchesListComponent } from './components/matches/matches-list/matches-list.component';
-import { MatchesDetailComponent } from './components/matches/matches-detail/matches-detail.component';
+import { MembersListComponent } from './components/members/members-list/members-list.component';
+import { MembersDetailComponent } from './components/members/members-detail/members-detail.component';
+import { MembersEditComponent } from './components/members/members-edit/members-edit.component';
+import { MemberEditResolver } from './resolvers/member-edit.resolver';
+import { MemberDetailResolver } from './resolvers/member-detail.resolver';
+import { UnsavedChangesGuard } from './guards/unsavedChanges/unsaved-changes.guard';
+
 
 const routes: Routes = [
   {
@@ -25,8 +30,9 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: 'messages', component: MessagesComponent },
-      { path: 'matches', component: MatchesListComponent },
-      { path: 'matches/:id', component: MatchesDetailComponent },
+      { path: 'members', component: MembersListComponent },
+      { path: 'members/edit', component: MembersEditComponent, resolve: { user: MemberEditResolver }, canDeactivate: [ UnsavedChangesGuard ] },
+      { path: 'members/:id', component: MembersDetailComponent, resolve: { user: MemberDetailResolver } },
       { path: 'lists', component: ListsComponent }
     ]
   },

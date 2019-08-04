@@ -8,7 +8,7 @@ import { NgModule } from '@angular/core';
 
 import { errorInterceptorProvider } from 'src/shared/http-interceptors/error-interceptor';
 import { NotificationsService } from 'src/shared/services/notifications/notifications.service';
-import { AuthGuard } from 'src/shared/guards/auth.guard';
+import { AuthGuard } from 'src/shared/guards/auth/auth.guard';
 import { StorageService } from 'src/shared/services/storage/storage.service';
 
 import { environment } from 'src/environments/environment';
@@ -16,9 +16,9 @@ import { environment } from 'src/environments/environment';
 import { AppComponent } from './app.component';
 import { NavModule } from './components/nav/nav.module';
 import { RegisterModule } from './components/register/register.module';
-import { MatchesModule } from './components/matches/matches.module';
 import { MessagesModule } from './components/messages/messages.module';
 import { ListsModule } from './components/lists/lists.module';
+import { MembersModule } from './components/members/members.module';
 
 export function tokenGetter() {
   const storageService = new StorageService();
@@ -47,7 +47,7 @@ export function tokenGetter() {
     NavModule,
     HomeModule,
     RegisterModule,
-    MatchesModule,
+    MembersModule,
     MessagesModule,
     ListsModule
   ],

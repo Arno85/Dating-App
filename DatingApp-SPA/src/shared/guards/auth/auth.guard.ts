@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
-import { AuthLogicService } from './../services/auth/logic/auth-logic.service';
-import { NotificationsService } from '../services/notifications/notifications.service';
+import { AuthLogicService } from '../../services/auth/logic/auth-logic.service';
+import { NotificationsService } from '../../services/notifications/notifications.service';
 
 @Injectable({
   providedIn: 'root'

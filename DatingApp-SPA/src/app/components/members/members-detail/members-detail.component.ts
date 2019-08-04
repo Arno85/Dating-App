@@ -6,12 +6,12 @@ import { ActivatedRoute } from '@angular/router';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gallery';
 
 @Component({
-  selector: 'app-matches-detail',
-  templateUrl: './matches-detail.component.html',
-  styleUrls: ['./matches-detail.component.scss'],
+  selector: 'app-members-detail',
+  templateUrl: './members-detail.component.html',
+  styleUrls: ['./members-detail.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class MatchesDetailComponent implements OnInit {
+export class MembersDetailComponent implements OnInit {
 
   public user: User = new User();
   public galleryOptions: NgxGalleryOptions[] = new Array<NgxGalleryOptions>();
