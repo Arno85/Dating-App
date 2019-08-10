@@ -1,0 +1,46 @@
+.img.img-thumbnail
+{
+    min-width: 100px !important;
+    height: 100px;
+    margin-bottom: 2px;
+}
+
+.my-drop-zone
+{
+    box-sizing: border-box;
+    padding: 16px;
+
+    &.nv-file-over
+    {
+        padding: 14px;
+
+        border: dotted 3px #f3969a;
+    }
+}
+
+.nv-file-over
+{
+    padding: 14px;
+}
+
+input[type='file']
+{
+    color: transparent;
+}
+
+.btn-photos
+{
+    display: flex;
+
+    margin: 5px 5px 20px;
+}
+
+.bg-unactive
+{
+    background-color: lightgrey;
+}
+
+.btn-queue
+{
+    display: flex;
+}

@@ -14,9 +14,9 @@ namespace DatingApp.API.Data.AppRepo
             _context = context;
         }
 
-        public void Add<T>(T entity) where T : class
+        public async Task Add<T>(T entity) where T : class
         {
-            _context.Add(entity);
+            await _context.AddAsync(entity);
         }
 
         public void Delete<T>(T entity) where T : class

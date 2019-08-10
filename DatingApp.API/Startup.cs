@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using DatingApp.API.Data;
+using DatingApp.API.Data.PhotosRepository;
 using DatingApp.API.Data.Seeds;
 using DatingApp.API.Data.UsersRepository;
 using DatingApp.API.Factories.TokenFactory;
@@ -49,8 +50,10 @@ namespace DatingApp.API
             services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 			// Add Cross Origin
 			services.AddCors();
-            //
+            // Add AutoMapper
             services.AddAutoMapper();
+            // Add Cloudinary Settings
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
             // Seed the database with stub data
             services.AddTransient<Seed>();
 			// Add the Dependency Injection for the Auth Repository
@@ -63,6 +66,7 @@ namespace DatingApp.API
 			services.AddScoped<IAuthRepository, AuthRepository>();
 			services.AddScoped<ITokenFactory, TokenFactory>();
             services.AddScoped<IUsersRepository, UsersRepository>();
+            services.AddScoped<IPhotosRepository, PhotosRepository>();
 
             // Set Authentication
             setAuthentication(services);

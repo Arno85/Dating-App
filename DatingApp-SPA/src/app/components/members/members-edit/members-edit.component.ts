@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewEncapsulation, ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild, HostListener, OnDestroy } from '@angular/core';
 import { User } from 'src/app/models/users/user';
 import { ActivatedRoute } from '@angular/router';
 import { NotificationsService } from 'src/shared/services/notifications/notifications.service';
 import { NgForm } from '@angular/forms';
 import { UsersLogicService } from 'src/app/services/users/logic/users-logic.service';
-import { JwtHelperService } from '@auth0/angular-jwt';
+import { AuthLogicService } from 'src/shared/services/auth/logic/auth-logic.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-members-edit',
@@ -12,9 +13,12 @@ import { JwtHelperService } from '@auth0/angular-jwt';
   styleUrls: ['./members-edit.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class MembersEditComponent implements OnInit {
+export class MembersEditComponent implements OnInit, OnDestroy {
+
+  /* #region [PublicProperties] */
 
   public user: User;
+  public currentPhotoUrl: string;
 
   @ViewChild('editForm') public editForm: NgForm;
 
@@ -25,17 +29,37 @@ export class MembersEditComponent implements OnInit {
     }
   }
 
+  /* #endregion */
+
+  /* #region [PrivateProperties] */
+
+  private _subscription = new Subscription();
+
+  /* #endregion */
+
+  /* #region [PublicMethods] */
+
   constructor(
     private _route: ActivatedRoute,
     private _notificationsService: NotificationsService,
     private _userService: UsersLogicService,
-    private _jwtService: JwtHelperService
+    private _authService: AuthLogicService
   ) { }
 
   public ngOnInit(): void {
     this._route.data.subscribe(data => {
       this.user = data['user'];
     });
+
+    this._subscription.add(
+      this._authService.currentPhotoUrl
+        .subscribe(photoUrl => this.currentPhotoUrl = photoUrl
+      )
+    );
+  }
+
+  public ngOnDestroy(): void {
+    this._subscription.unsubscribe();
   }
 
   public updateUser(): void {
@@ -47,4 +71,5 @@ export class MembersEditComponent implements OnInit {
     });
   }
 
+  /* #endregion */
 }

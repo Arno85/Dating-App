@@ -27,6 +27,14 @@ export class UsersLogicService {
     return this._usersDataService.updateUser(id, this._userToUpdateUserDto(user));
   }
 
+  public setMainPhoto(userId: number, photoId: number): Observable<void> {
+    return this._usersDataService.setMainPhoto(userId, photoId);
+  }
+
+  public deletePhoto(userId: number, photoId: number): Observable<void> {
+    return this._usersDataService.deletePhoto(userId, photoId);
+  }
+
   private _userToUpdateUserDto(user: User): UserForUpdateDto {
     const userForUpdateDto = new UserForUpdateDto();
     userForUpdateDto.introduction = user.introduction;

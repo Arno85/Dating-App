@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DatingApp.API.Dtos.Users
+namespace DatingApp.API.Dtos.Photos
 {
-    public class PhotoDto
+    public class PhotoForDetailDto
     {
         public int Id { get; set; }
 

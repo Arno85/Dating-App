@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using AutoMapper;
 using DatingApp.API.Data.UsersRepository;
 using DatingApp.API.Dtos.Users;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DatingApp.API.Controllers
+namespace DatingApp.API.Controllers.Users
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -28,7 +29,7 @@ namespace DatingApp.API.Controllers
         public async Task<IActionResult> GetUsers()
         {
             var users = await _usersRepository.GetUsers();
-            var usersToReturn = _mapper.Map<IEnumerable<UsersDto>>(users);
+            var usersToReturn = _mapper.Map<IEnumerable<UsersListDto>>(users);
 
             return Ok(usersToReturn);
         }

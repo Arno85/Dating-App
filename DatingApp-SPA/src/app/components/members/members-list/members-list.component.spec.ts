@@ -1,7 +1,5 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
 import { MembersListComponent } from './members-list.component';
 import { MembersCardComponent } from './members-card/members-card.component';
 import { RouterTestingModule } from '@angular/router/testing';
