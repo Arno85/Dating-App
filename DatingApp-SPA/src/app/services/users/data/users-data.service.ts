@@ -16,6 +16,7 @@ export class UsersDataService {
   /* #endregion */
 
   /* #region [PublicMethods] */
+
   constructor(
     private _http: HttpClient
   ) { }
@@ -31,6 +32,15 @@ export class UsersDataService {
   public updateUser(id: number, user: UserForUpdateDto): Observable<void> {
     return this._http.put<void>(`${this._apiUrl}${this._controller}${id}`, user);
   }
+
+  public setMainPhoto(userId: number, photoId: number): Observable<void> {
+    return this._http.post<void>(`${this._apiUrl}${this._controller}${userId}/photos/${photoId}/setMain`, {});
+  }
+
+  public deletePhoto(userId: number, photoId: number): Observable<void> {
+    return this._http.delete<void>(`${this._apiUrl}${this._controller}${userId}/photos/${photoId}`);
+  }
+
   /* #endregion */
 
 }

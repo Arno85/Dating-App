@@ -8,21 +8,25 @@
         height: auto;
     }
 
-    .form-control {
-      margin-bottom: 1rem;
+    .form-control
+    {
+        margin-bottom: 1rem;
     }
 
     .card-body
     {
         padding: 25px 0;
 
-        .form-inline .form-control {
-          width: calc(50% - 7px);
-          display: inline-block;
+        .form-inline .form-control
+        {
+            display: inline-block;
 
-          &:last-child {
-            margin-left: 10px;
-          }
+            width: calc(50% - 7px);
+
+            &:last-child
+            {
+                margin-left: 10px;
+            }
         }
     }
 
@@ -75,9 +79,9 @@
     }
 
     .form-control
-        {
-            margin-bottom: 40px;
-        }
+    {
+        margin-bottom: 40px;
+    }
 
     .tab-content
     {
