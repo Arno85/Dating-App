@@ -13,6 +13,6 @@ namespace DatingApp.API.Factories.TokenFactory
 	{
 		void BuildToken(User user);
 
-		TokenDto GetToken();
+		string GetToken();
 	}
 }

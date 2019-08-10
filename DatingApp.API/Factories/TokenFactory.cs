@@ -16,7 +16,7 @@ namespace DatingApp.API.Factories.TokenFactory
 	{
 		private readonly IConfiguration _config;
 
-		private TokenDto _token;
+		private string _token;
 
 		public TokenFactory(IConfiguration config)
 		{
@@ -28,7 +28,7 @@ namespace DatingApp.API.Factories.TokenFactory
 			setToken(setClaims(user), setCredentials());
 		}
 
-		public TokenDto GetToken()
+		public string GetToken()
 		{
 			return _token;
 		}
@@ -61,10 +61,8 @@ namespace DatingApp.API.Factories.TokenFactory
 
 			var tokenHandler = new JwtSecurityTokenHandler();
 			var token = tokenHandler.CreateToken(tokenDescriptor);
-			_token = new TokenDto
-			{
-				Token = tokenHandler.WriteToken(token)
-			};
+
+            _token = tokenHandler.WriteToken(token);
 		}
 	}
 }

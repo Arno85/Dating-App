@@ -13,20 +13,24 @@ import { MemberEditResolver } from 'src/app/resolvers/member-edit.resolver';
 import { MemberDetailResolver } from 'src/app/resolvers/member-detail.resolver';
 import { FormsModule } from '@angular/forms';
 import { UnsavedChangesGuard } from 'src/app/guards/unsavedChanges/unsaved-changes.guard';
+import { PhotoEditorComponent } from './members-edit/photo-editor/photo-editor.component';
+import { FileUploadModule } from 'ng2-file-upload';
 
 @NgModule({
   declarations: [
     MembersListComponent,
     MembersCardComponent,
     MembersDetailComponent,
-    MembersEditComponent
+    MembersEditComponent,
+    PhotoEditorComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
     FormsModule,
     NgxGalleryModule,
-    TabsModule.forRoot()
+    TabsModule.forRoot(),
+    FileUploadModule
   ],
   providers: [
     UsersLogicService,
@@ -39,7 +43,8 @@ import { UnsavedChangesGuard } from 'src/app/guards/unsavedChanges/unsaved-chang
     MembersListComponent,
     MembersCardComponent,
     MembersDetailComponent,
-    MembersEditComponent
+    MembersEditComponent,
+    PhotoEditorComponent
   ]
 })
 export class MembersModule { }
