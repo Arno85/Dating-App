@@ -14,3 +14,6 @@ DatingApp.API/.vs/DatingApp.API/
 DatingApp.API/obj/
 DatingApp-SPA/package-lock.json
 DatingApp.API/bin/Debug/netcoreapp2.1/DatingApp.API.deps.json
+*.config
+DatingApp.API/obj/
+DatingApp.API/.vs/
