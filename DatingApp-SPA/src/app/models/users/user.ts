@@ -24,7 +24,7 @@ export class User {
     this.gender = '';
     this.created = new Date();
     this.lastActive = new Date();
-    this.photoUrl = '';
+    this.photoUrl = '../assets/img/user.png';
     this.city = '';
     this.country = '';
     this.interests = '';

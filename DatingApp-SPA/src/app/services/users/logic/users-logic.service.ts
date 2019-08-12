@@ -11,8 +11,7 @@ import { UserForUpdateDto } from './../../../dtos/users/userForUpdate.dto';
 export class UsersLogicService {
 
   constructor(
-    private _usersDataService: UsersDataService,
-    private _notificationsService: NotificationsService
+    private _usersDataService: UsersDataService
   ) { }
 
   public getUsers(): Observable<User[]> {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { AuthDataService } from '../data/auth-data.service';
 import { StorageService } from '../../storage/storage.service';
 import { UserToLogin } from 'src/shared/dtos/auth/UserToLogin';
@@ -25,7 +25,7 @@ export class AuthLogicService implements ILogin, IRegister {
   private _username = '';
   private _userId = null;
   private _jwtHelperService: JwtHelperService = new JwtHelperService();
-  private _photoUrl = new BehaviorSubject<string>('../assets/img/user.png');
+  private _photoUrl = new BehaviorSubject<string>('');
   public currentPhotoUrl = this._photoUrl.asObservable();
   /* #endregion */
 
@@ -108,12 +108,20 @@ export class AuthLogicService implements ILogin, IRegister {
     user.photoUrl = photoUrl;
     this._setCurrentUserInStorage(user);
   }
+
+  public verifyEmail(email: string): Observable<boolean> {
+    return this._authDataService.verifyEmail(email);
+  }
+
+  public verifyUsername(username: string): Observable<boolean> {
+    return this._authDataService.verifyUsername(username);
+  }
   /* #endregion */
 
   /* #region [PrivateMethods] */
 
   private _setCurrentUserInStorage(user: User): void {
-    this._storageService.setItemToLocalStorage('user', JSON.stringify(user))
+    this._storageService.setItemToLocalStorage('user', JSON.stringify(user));
   }
 
   /* #endregion */

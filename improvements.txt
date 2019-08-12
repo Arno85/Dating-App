@@ -1,0 +1,8 @@
+- hide password in payload register (fe)
+- Hide "Alertify.js" inside confirmation modal delete photo (fe)
+- Responsive design (fe)
+- is-valid & is-invalid inside form fields (fe)
+- main photo when register.
+- placeholders profile edit sidebar.
+- Set a default message for the profile<s descriptions empty.
+- Remove url dafault photo from Mapper Helper and find a better way.
