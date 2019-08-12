@@ -6,3 +6,4 @@
 - placeholders profile edit sidebar.
 - Set a default message for the profile<s descriptions empty.
 - Remove url dafault photo from Mapper Helper and find a better way.
+- Counry dropdown in edit profile.

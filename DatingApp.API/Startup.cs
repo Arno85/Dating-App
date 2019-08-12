@@ -58,6 +58,8 @@ namespace DatingApp.API
             services.AddTransient<Seed>();
             // HttpClient
             services.AddHttpClient();
+            // Add Action Filter LogUserActivity
+            services.AddScoped<LogUserActivity>();
 
             // Add the Dependency Injection for the Auth Repository
             /* NOTES -> 3 possibilities :

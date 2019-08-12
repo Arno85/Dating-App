@@ -15,6 +15,7 @@ import { FormsModule } from '@angular/forms';
 import { UnsavedChangesGuard } from 'src/app/guards/unsavedChanges/unsaved-changes.guard';
 import { PhotoEditorComponent } from './members-edit/photo-editor/photo-editor.component';
 import { FileUploadModule } from 'ng2-file-upload';
+import { TimeAgoPipe } from 'time-ago-pipe';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { FileUploadModule } from 'ng2-file-upload';
     MembersCardComponent,
     MembersDetailComponent,
     MembersEditComponent,
-    PhotoEditorComponent
+    PhotoEditorComponent,
+    TimeAgoPipe
   ],
   imports: [
     CommonModule,
