@@ -9,8 +9,12 @@ DatingApp.API/obj/DatingApp.API.csproj.nuget.g.props
 DatingApp.API/obj/Debug/netcoreapp2.1/DatingApp.API.dll
 DatingApp.API/obj/Debug/netcoreapp2.1/DatingApp.API.pdb
 DatingApp.API/obj/Debug/netcoreapp2.1/DatingApp.API.assets.cache
+*.config
+DatingApp.API/obj/
+DatingApp.API/.vs/
 DatingApp.API/.vs/DatingApp.API/v16/.suo
 DatingApp.API/.vs/DatingApp.API/
 DatingApp.API/obj/
 DatingApp-SPA/package-lock.json
 DatingApp.API/bin/Debug/netcoreapp2.1/DatingApp.API.deps.json
+
