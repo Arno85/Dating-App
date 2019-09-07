@@ -29,8 +29,12 @@ export class AuthDataService {
     return this._http.post<UserToRegister>(`${this._apiUrl}${this._controller}register`, userToRegister);
   }
 
-  public userAlreadyExist(username: string): Observable<boolean> {
-    throw new Error('Method not implemented.');
+  public verifyEmail(email: string): Observable<boolean> {
+    return this._http.get<boolean>(`${this._apiUrl}${this._controller}verifyEmail/${email}`);
+  }
+
+  public verifyUsername(username: string): Observable<boolean> {
+    return this._http.get<boolean>(`${this._apiUrl}${this._controller}verifyUsername/${username}`);
   }
   /* #endregion */
 }

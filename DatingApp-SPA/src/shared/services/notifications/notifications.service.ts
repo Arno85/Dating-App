@@ -8,12 +8,12 @@ export class NotificationsService {
 
   constructor() { }
 
-  public confirm(message: string, okCallback: () => any): void {
+  public confirm(message: string, header: string, okCallback: () => any): void {
     alertify.confirm(message, (e: Event) => {
       if (e) {
         okCallback();
       }
-    });
+    }).setHeader(header);
   }
 
   public success(message: string): void {

@@ -4,6 +4,9 @@ import { NotificationsService } from 'src/shared/services/notifications/notifica
 import { User } from 'src/app/models/users/user';
 import { Observable } from 'rxjs';
 import { UserForUpdateDto } from './../../../dtos/users/userForUpdate.dto';
+import { map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
+import { DatePipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -11,16 +14,19 @@ import { UserForUpdateDto } from './../../../dtos/users/userForUpdate.dto';
 export class UsersLogicService {
 
   constructor(
-    private _usersDataService: UsersDataService,
-    private _notificationsService: NotificationsService
+    private _usersDataService: UsersDataService
   ) { }
 
   public getUsers(): Observable<User[]> {
-    return this._usersDataService.getUsers();
+    return this._usersDataService.getUsers().pipe(
+      map(users => users.map(u => this._modifyUser(u)))
+    );
   }
 
   public getUser(id: number): Observable<User> {
-    return this._usersDataService.getUser(id);
+    return this._usersDataService.getUser(id).pipe(
+      map(u => this._modifyUser(u))
+    );
   }
 
   public updateUser(id: number, user: User): Observable<void> {
@@ -37,6 +43,8 @@ export class UsersLogicService {
 
   private _userToUpdateUserDto(user: User): UserForUpdateDto {
     const userForUpdateDto = new UserForUpdateDto();
+    userForUpdateDto.dateOfBirth = user.dateOfBirth;
+    userForUpdateDto.knowAs = user.knownAs;
     userForUpdateDto.introduction = user.introduction;
     userForUpdateDto.lookingFor = user.lookingFor;
     userForUpdateDto.interests = user.interests;
@@ -44,6 +52,12 @@ export class UsersLogicService {
     userForUpdateDto.country = user.country;
 
     return userForUpdateDto;
+  }
+
+  private _modifyUser(u: User): User {
+    u.photoUrl = u.photoUrl ? u.photoUrl : environment.defaultProfileImgPath;
+    u.dateOfBirth = new Date(u.dateOfBirth);
+    return u;
   }
 
 }

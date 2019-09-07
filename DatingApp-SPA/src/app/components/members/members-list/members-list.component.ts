@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/users/user';
 import { UsersLogicService } from 'src/app/services/users/logic/users-logic.service';
 import { NotificationsService } from 'src/shared/services/notifications/notifications.service';
+import { AuthLogicService } from './../../../../shared/services/auth/logic/auth-logic.service';
 
 @Component({
   selector: 'app-list-members',

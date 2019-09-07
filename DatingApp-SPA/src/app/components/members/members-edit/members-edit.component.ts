@@ -5,7 +5,10 @@ import { NotificationsService } from 'src/shared/services/notifications/notifica
 import { NgForm } from '@angular/forms';
 import { UsersLogicService } from 'src/app/services/users/logic/users-logic.service';
 import { AuthLogicService } from 'src/shared/services/auth/logic/auth-logic.service';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
+import { CountriesLogicService } from 'src/app/services/countries/logic/countries-logic.service';
+import { Country } from 'src/app/models/countries/country.model';
+import { BsDatepickerConfig } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-members-edit',
@@ -16,12 +19,19 @@ import { Subscription } from 'rxjs';
 export class MembersEditComponent implements OnInit, OnDestroy {
 
   /* #region [PublicProperties] */
-
   public user: User;
   public currentPhotoUrl: string;
+  public countryList = new Observable<Country[]>();
+  public bsConfig: Partial<BsDatepickerConfig>;
 
   @ViewChild('editForm') public editForm: NgForm;
+  /* #endregion */
 
+  /* #region [PrivateProperties] */
+  private _subscription = new Subscription();
+  /* #endregion */
+
+  /* #region [PublicMethods] */
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any) {
     if (this.editForm.dirty) {
@@ -29,21 +39,12 @@ export class MembersEditComponent implements OnInit, OnDestroy {
     }
   }
 
-  /* #endregion */
-
-  /* #region [PrivateProperties] */
-
-  private _subscription = new Subscription();
-
-  /* #endregion */
-
-  /* #region [PublicMethods] */
-
   constructor(
     private _route: ActivatedRoute,
     private _notificationsService: NotificationsService,
     private _userService: UsersLogicService,
-    private _authService: AuthLogicService
+    private _authService: AuthLogicService,
+    private _countriesService: CountriesLogicService
   ) { }
 
   public ngOnInit(): void {
@@ -54,8 +55,10 @@ export class MembersEditComponent implements OnInit, OnDestroy {
     this._subscription.add(
       this._authService.currentPhotoUrl
         .subscribe(photoUrl => this.currentPhotoUrl = photoUrl
-      )
+        )
     );
+    this._fetchCountries();
+    this._setDatePickerConfig();
   }
 
   public ngOnDestroy(): void {
@@ -69,6 +72,19 @@ export class MembersEditComponent implements OnInit, OnDestroy {
     }, error => {
       this._notificationsService.error(error);
     });
+  }
+
+  /* #endregion */
+
+  /* #region [PrivateMethods] */
+  private _fetchCountries(): void {
+    this.countryList = this._countriesService.getCountryList();
+  }
+
+  private _setDatePickerConfig(): void {
+    this.bsConfig = {
+      containerClass: 'theme-default'
+    };
   }
 
   /* #endregion */
