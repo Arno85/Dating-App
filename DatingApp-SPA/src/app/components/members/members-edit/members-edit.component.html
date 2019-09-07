@@ -29,23 +29,32 @@
               <input name="city"
                      type="text"
                      class="form-control"
-                     [(ngModel)]="user.city">,
-              <input name="country"
-                     type="text"
-                     class="form-control"
-                     [(ngModel)]="user.country">
+                     placeholder="City"
+                     [(ngModel)]="user.city">
+
+              <select name="country"
+                      type="text"
+                      class="form-control"
+                      [(ngModel)]="user.country">
+                <option [value]="country.name"
+                        *ngFor="let country of countryList | async"
+                        [selected]="country.name === user.country">{{ country.name }}</option>
+              </select>
+
             </div>
           </div>
           <div>
-            <strong>Age:</strong>
-            <input name="age"
+            <strong>Date Of Birth:</strong>
+            <input name="dateOfBirth"
                    type="text"
                    class="form-control"
-                   [(ngModel)]="user.age">
+                   [(ngModel)]="user.dateOfBirth"
+                   bsDatepicker
+                   [bsConfig]="bsConfig">
           </div>
           <div>
             <strong>Last Active:</strong>
-            <p>{{ user.lastActive | date }}</p>
+            <p>{{ user.lastActive | timeAgo }}</p>
           </div>
           <div>
             <strong>Member since:</strong>

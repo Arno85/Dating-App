@@ -7,6 +7,11 @@ namespace DatingApp.API.Dtos.Users
 {
     public class UserForUpdateDto
     {
+        public DateTime DateOfBirth { get; set; }
+
+        public string KnownAs { get; set; }
+
+        public string Email { get; set; }
 
         public string Introduction { get; set; }
 

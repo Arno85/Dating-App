@@ -34,6 +34,32 @@ namespace DatingApp.API.Controllers.Auth
             _mapper = mapper;
         }
 
+        [HttpGet("verifyEmail/{email}")]
+        public async Task<IActionResult> VerifyEmail(string email)
+        {
+            var emailExists = false;
+
+            if (await _repo.EmailExists(email.ToLower()))
+            {
+                emailExists = true;
+            }
+
+            return Ok(emailExists);
+        }
+
+        [HttpGet("verifyUsername/{username}")]
+        public async Task<IActionResult> VerifyUsername(string username)
+        {
+            var usernameExists = false;
+
+            if (await _repo.UsernameExists(username.ToLower()))
+            {
+                usernameExists = true;
+            }
+
+            return Ok(usernameExists);
+        }
+
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserForRegisterDto userForRegister)
         {
@@ -50,15 +76,11 @@ namespace DatingApp.API.Controllers.Auth
                 return BadRequest("Username already exists");
             }
 
-            var userToCreate = new User
-            {
-                Username = userForRegister.Username,
-                Email = userForRegister.Email
-            };
-
+            var userToCreate = _mapper.Map<User>(userForRegister);
             var createdUser = await _repo.Register(userToCreate, userForRegister.Password);
+            var userTorReturn = _mapper.Map<UserForDetailDto>(createdUser);
 
-            return this.Ok(createdUser);
+            return this.CreatedAtRoute("GetUser", new { controller = "Users", id = createdUser.Id}, userTorReturn);
         }
 
         [HttpPost("login")]

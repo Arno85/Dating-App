@@ -6,7 +6,7 @@ import { MembersCardComponent } from './members-list/members-card/members-card.c
 import { MembersDetailComponent } from './members-detail/members-detail.component';
 import { MembersListComponent } from './members-list/members-list.component';
 import { RouterModule } from '@angular/router';
-import { TabsModule } from 'ngx-bootstrap';
+import { TabsModule, BsDatepickerModule } from 'ngx-bootstrap';
 import { NgxGalleryModule } from 'ngx-gallery';
 import { MembersEditComponent } from './members-edit/members-edit.component';
 import { MemberEditResolver } from 'src/app/resolvers/member-edit.resolver';
@@ -15,6 +15,7 @@ import { FormsModule } from '@angular/forms';
 import { UnsavedChangesGuard } from 'src/app/guards/unsavedChanges/unsaved-changes.guard';
 import { PhotoEditorComponent } from './members-edit/photo-editor/photo-editor.component';
 import { FileUploadModule } from 'ng2-file-upload';
+import { TimeAgoPipe } from 'time-ago-pipe';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { FileUploadModule } from 'ng2-file-upload';
     MembersCardComponent,
     MembersDetailComponent,
     MembersEditComponent,
-    PhotoEditorComponent
+    PhotoEditorComponent,
+    TimeAgoPipe
   ],
   imports: [
     CommonModule,
@@ -30,7 +32,8 @@ import { FileUploadModule } from 'ng2-file-upload';
     FormsModule,
     NgxGalleryModule,
     TabsModule.forRoot(),
-    FileUploadModule
+    FileUploadModule,
+    BsDatepickerModule.forRoot()
   ],
   providers: [
     UsersLogicService,

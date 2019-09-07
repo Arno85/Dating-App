@@ -1,0 +1,18 @@
+.loading-control
+{
+    background-image: url('http://loadinggif.com/images/image-selection/3.gif');
+    background-repeat: no-repeat;
+    background-position: 12px center;
+    background-size: 20px 20px;
+}
+
+.form-control.is-valid,
+.form-control.is-invalid
+{
+    background-position: center right calc(.379em + .4rem);
+}
+
+.form-control.is-valid
+{
+    background-size: calc(.50em + .375rem) calc(.50em + .375rem);
+}

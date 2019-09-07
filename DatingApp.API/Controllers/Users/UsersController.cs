@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using DatingApp.API.Data.UsersRepository;
 using DatingApp.API.Dtos.Users;
+using DatingApp.API.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +15,7 @@ namespace DatingApp.API.Controllers.Users
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ServiceFilter(typeof(LogUserActivity))]
     public class UsersController : ControllerBase
     {
         private readonly IUsersRepository _usersRepository;
@@ -34,7 +36,7 @@ namespace DatingApp.API.Controllers.Users
             return Ok(usersToReturn);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetUser")]
         public async Task<IActionResult> GetUser(int id)
         {
             var user = await _usersRepository.GetUser(id);
@@ -54,13 +56,14 @@ namespace DatingApp.API.Controllers.Users
             var userFromRepo = await _usersRepository.GetUser(id);
 
             _mapper.Map(userForUpdateDto, userFromRepo);
+            _usersRepository.Update(userFromRepo);
 
             if(await _usersRepository.SaveAll())
             {
                 return NoContent();
             }
 
-            throw new Exception($"Updating user {id} failed on save");
+            return BadRequest($"Updating user {id} failed on save");
         }
     }
 }

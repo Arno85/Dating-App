@@ -56,14 +56,19 @@ namespace DatingApp.API
             services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
             // Seed the database with stub data
             services.AddTransient<Seed>();
-			// Add the Dependency Injection for the Auth Repository
-			/* NOTES -> 3 possibilities :
+            // HttpClient
+            services.AddHttpClient();
+            // Add Action Filter LogUserActivity
+            services.AddScoped<LogUserActivity>();
+
+            // Add the Dependency Injection for the Auth Repository
+            /* NOTES -> 3 possibilities :
             - AddSingleton add the dependency injection with a SINGLE instance of the object. Same instance used across the app.
             - AddTransient add the dependency injection. Create an instance each time the service is requested. 
             - AddScoped add the dependency injection with a SINGLE instance like AddSingleton but in the current scope itself. 
             Ex: It will create one instance for each HTTP request but will reuse the same instance within the same web request.
             */
-			services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<IAuthRepository, AuthRepository>();
 			services.AddScoped<ITokenFactory, TokenFactory>();
             services.AddScoped<IUsersRepository, UsersRepository>();
             services.AddScoped<IPhotosRepository, PhotosRepository>();

@@ -25,7 +25,7 @@
           </div>
           <div>
             <strong>Last Active:</strong>
-            <p>{{ user.lastActive | date }}</p>
+            <p>{{ user.lastActive | timeAgo }}</p>
           </div>
           <div>
             <strong>Member since:</strong>
@@ -45,25 +45,39 @@
 
     <div class="col-sm-8">
       <div class="tab-panel">
+
         <tabset class="member-tabset">
           <tab heading="About {{ user.knownAs || user.username | titlecase }}">
-            <h4>Description</h4>
-            <p>{{ user.introduction }}</p>
-            <h4>Looking For</h4>
-            <p>{{ user.lookingFor }}</p>
+            <div class="content"
+                 *ngIf="user.introduction || user.lookingFor; else noContent">
+              <h4>Description</h4>
+              <p>{{ user.introduction }}</p>
+              <h4>Looking For</h4>
+              <p>{{ user.lookingFor }}</p>
+            </div>
           </tab>
           <tab heading="Interests">
-            <h4>Interests</h4>
-            <p>{{ user.interests }}</p>
+            <div class="content"
+                 *ngIf="user.interests; else noContent">
+              <h4>Interests</h4>
+              <p>{{ user.interests }}</p>
+            </div>
           </tab>
           <tab heading="Photos">
             <ngx-gallery [options]="galleryOptions"
-                         [images]="galleryImages"></ngx-gallery>
+                         [images]="galleryImages"
+                         *ngIf="user.photos.length; else noContent"></ngx-gallery>
           </tab>
           <tab heading="Messages">
             <p>Messages will go here</p>
           </tab>
         </tabset>
+
+        <ng-template #noContent
+                     class="no-content">
+          <h4>Nothing to show here!</h4>
+        </ng-template>
+
       </div>
     </div>
 
