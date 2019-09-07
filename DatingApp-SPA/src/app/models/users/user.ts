@@ -5,6 +5,7 @@ export class User {
   public username: string;
   public knownAs: string;
   public age: number;
+  public dateOfBirth: Date;
   public gender: string;
   public created: Date;
   public lastActive: Date;
@@ -21,6 +22,7 @@ export class User {
     this.username = '';
     this.knownAs = '';
     this.age = null;
+    this.dateOfBirth = new Date();
     this.gender = '';
     this.created = new Date();
     this.lastActive = new Date();

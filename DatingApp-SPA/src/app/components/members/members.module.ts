@@ -6,7 +6,7 @@ import { MembersCardComponent } from './members-list/members-card/members-card.c
 import { MembersDetailComponent } from './members-detail/members-detail.component';
 import { MembersListComponent } from './members-list/members-list.component';
 import { RouterModule } from '@angular/router';
-import { TabsModule } from 'ngx-bootstrap';
+import { TabsModule, BsDatepickerModule } from 'ngx-bootstrap';
 import { NgxGalleryModule } from 'ngx-gallery';
 import { MembersEditComponent } from './members-edit/members-edit.component';
 import { MemberEditResolver } from 'src/app/resolvers/member-edit.resolver';
@@ -32,7 +32,8 @@ import { TimeAgoPipe } from 'time-ago-pipe';
     FormsModule,
     NgxGalleryModule,
     TabsModule.forRoot(),
-    FileUploadModule
+    FileUploadModule,
+    BsDatepickerModule.forRoot()
   ],
   providers: [
     UsersLogicService,

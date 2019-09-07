@@ -21,6 +21,8 @@ namespace DatingApp.API.Dtos.Users
 
         public int Age { get; set; }
 
+        public DateTime DateOfBirth { get; set; }
+
         public DateTime Created { get; set; }
 
         public DateTime LastActive { get; set; }

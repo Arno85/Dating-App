@@ -83,7 +83,7 @@ export class PhotoEditorComponent implements OnInit {
   }
 
   public deletePhoto(photoId: number): void {
-    this._notificationsService.confirm('Are you sure you want to delete this photo?', () => {
+    this._notificationsService.confirm('Are you sure you want to delete this photo?', 'Delete photo',  () => {
       this._userService.deletePhoto(this._authLogicService.getUserId(), photoId).subscribe(() => {
         const index = this.photos.findIndex(p => p.id === photoId);
         this.photos.splice(index, 1);

@@ -126,7 +126,7 @@ export class RegisterComponent implements IRegister, OnInit, OnDestroy {
   }
   /* #endregion */
 
-  /* #region [PrivateMethods] */
+  /* #region [Private Methods] */
   private _passwordMatchValidator(g: FormGroup) {
     return g.get('password').value === g.get('confirmPassword').value ? null : { mismatch: true };
   }

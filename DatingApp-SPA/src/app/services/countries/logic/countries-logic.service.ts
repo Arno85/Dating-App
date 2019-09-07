@@ -15,13 +15,13 @@ export class CountriesLogicService {
 
   public getCountryList(): Observable<Country[]> {
     if (!this._countryArray.length) {
-      this.fetchCountries();
+      this._fetchCountries();
     }
 
     return this._countriesSubject.asObservable();
   }
 
-  public fetchCountries(): void {
+  private _fetchCountries(): void {
     this._countryDataService.getCountries().subscribe(res => {
       this._countriesSubject.next(this._countryArray = res);
     });

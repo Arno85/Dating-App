@@ -56,13 +56,14 @@ namespace DatingApp.API.Controllers.Users
             var userFromRepo = await _usersRepository.GetUser(id);
 
             _mapper.Map(userForUpdateDto, userFromRepo);
+            _usersRepository.Update(userFromRepo);
 
             if(await _usersRepository.SaveAll())
             {
                 return NoContent();
             }
 
-            throw new Exception($"Updating user {id} failed on save");
+            return BadRequest($"Updating user {id} failed on save");
         }
     }
 }
