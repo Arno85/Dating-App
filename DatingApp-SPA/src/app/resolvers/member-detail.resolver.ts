@@ -2,7 +2,7 @@ import { Resolve, Router, ActivatedRouteSnapshot } from '@angular/router';
 import { UsersLogicService } from 'src/app/services/users/logic/users-logic.service';
 import { NotificationsService } from 'src/shared/services/notifications/notifications.service';
 import { Injectable } from '@angular/core';
-import { User } from 'src/app/models/users/user';
+import { User } from 'src/app/models/users/user.model';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 

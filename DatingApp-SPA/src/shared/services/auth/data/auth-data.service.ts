@@ -4,7 +4,7 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { UserToLogin } from 'src/shared/dtos/auth/UserToLogin';
 import { UserToRegister } from '../../../dtos/auth/UserToRegister';
-import { ResponseAuth } from 'src/shared/models/auth/responseAuth';
+import { ResponseAuth } from 'src/shared/models/auth/responseAuth.model';
 
 @Injectable({
   providedIn: 'root'

@@ -1,4 +1,5 @@
 ﻿using DatingApp.API.Data.AppRepo;
+using DatingApp.API.Helpers;
 using DatingApp.API.Models.Users;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ namespace DatingApp.API.Data.UsersRepository
 {
     public interface IUsersRepository : IAppRepository
     {
-        Task<IEnumerable<User>> GetUsers();
+        Task<PagedList<User>> GetUsers(UserParams userParams);
 
         Task<User> GetUser(int id);
     }

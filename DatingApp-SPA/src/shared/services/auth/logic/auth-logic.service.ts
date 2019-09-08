@@ -9,8 +9,8 @@ import { IRegister } from './IRegister';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
-import { User } from 'src/app/models/users/user';
-import { ResponseAuth } from 'src/shared/models/auth/responseAuth';
+import { ResponseAuth } from 'src/shared/models/auth/responseAuth.model';
+import { User } from 'src/app/models/users/user.model';
 
 @Injectable({
   providedIn: 'root'

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { UsersLogicService } from 'src/app/services/users/logic/users-logic.service';
-import { User } from 'src/app/models/users/user';
+import { User } from 'src/app/models/users/user.model';
 import { NotificationsService } from 'src/shared/services/notifications/notifications.service';
 import { ActivatedRoute } from '@angular/router';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gallery';
@@ -13,7 +13,7 @@ import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gal
 })
 export class MembersDetailComponent implements OnInit {
 
-  public user: User = new User();
+  public user: User;
   public galleryOptions: NgxGalleryOptions[] = new Array<NgxGalleryOptions>();
   public galleryImages: NgxGalleryImage[] = new Array<NgxGalleryImage>();
 

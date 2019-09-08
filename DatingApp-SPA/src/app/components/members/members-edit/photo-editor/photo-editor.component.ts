@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Photo } from 'src/app/models/users/photo';
 import { FileUploader } from 'ng2-file-upload';
 import { environment } from 'src/environments/environment';
 import { AuthLogicService } from './../../../../../shared/services/auth/logic/auth-logic.service';
 import { UsersLogicService } from 'src/app/services/users/logic/users-logic.service';
 import { NotificationsService } from 'src/shared/services/notifications/notifications.service';
+import { Photo } from 'src/app/models/users/photo.model';
 
 
 @Component({
