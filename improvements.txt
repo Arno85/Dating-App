@@ -1,2 +1,5 @@
 - Responsive design (fe)
 - is-valid & is-invalid inside form fields register (fe)
+- date of birth min 18y
+- Add "Interested in" (male / female) in register, profile and edit.
+- Please wait.. when filtering members list

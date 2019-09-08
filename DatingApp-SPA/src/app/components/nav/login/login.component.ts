@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserToLogin } from 'src/shared/dtos/auth/UserToLogin';
 import { AuthLogicService } from 'src/shared/services/auth/logic/auth-logic.service';
 import { ILogin } from 'src/shared/services/auth/logic/ILogin';
-import { User } from 'src/app/models/users/user';
+import { User } from 'src/app/models/users/user.model';
 import { Subscription } from 'rxjs';
 
 @Component({

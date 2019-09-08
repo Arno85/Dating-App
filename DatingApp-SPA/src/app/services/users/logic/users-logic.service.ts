@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { UsersDataService } from '../data/users-data.service';
-import { NotificationsService } from 'src/shared/services/notifications/notifications.service';
-import { User } from 'src/app/models/users/user';
 import { Observable } from 'rxjs';
 import { UserForUpdateDto } from './../../../dtos/users/userForUpdate.dto';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { DatePipe } from '@angular/common';
+import { User } from 'src/app/models/users/user.model';
+import { PaginatedResult } from 'src/shared/models/pagination/pagination.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,9 +16,11 @@ export class UsersLogicService {
     private _usersDataService: UsersDataService
   ) { }
 
-  public getUsers(): Observable<User[]> {
-    return this._usersDataService.getUsers().pipe(
-      map(users => users.map(u => this._modifyUser(u)))
+  public getUsers(pageNumber = null, pageSize = null, userParams = null): Observable<PaginatedResult<User[]>> {
+    return this._usersDataService.getUsers(pageNumber, pageSize, userParams).pipe(
+      tap(users => {
+        return users.result.forEach(u => this._modifyUser(u));
+      })
     );
   }
 

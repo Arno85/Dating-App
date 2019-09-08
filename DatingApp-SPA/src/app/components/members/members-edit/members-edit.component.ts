@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild, HostListener, OnDestroy } from '@angular/core';
-import { User } from 'src/app/models/users/user';
+import { User } from 'src/app/models/users/user.model';
 import { ActivatedRoute } from '@angular/router';
 import { NotificationsService } from 'src/shared/services/notifications/notifications.service';
 import { NgForm } from '@angular/forms';
