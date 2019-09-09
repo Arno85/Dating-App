@@ -48,8 +48,7 @@ export function tokenGetter() {
     HomeModule,
     RegisterModule,
     MembersModule,
-    MessagesModule,
-    ListsModule
+    MessagesModule
   ],
   providers: [
     errorInterceptorProvider,

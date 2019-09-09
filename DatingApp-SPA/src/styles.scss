@@ -7,17 +7,20 @@
 @import '~ngx-bootstrap/datepicker/bs-datepicker.css';
 
 html,
-body {
-  height: 100%;
+body
+{
+    height: 100%;
 }
-body {
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+body
+{
+    font-family: Roboto, 'Helvetica Neue', sans-serif;
 
     min-height: 100%;
     margin: 0;
 }
-a {
-  cursor: pointer;
+a
+{
+    cursor: pointer;
 }
 
 select
