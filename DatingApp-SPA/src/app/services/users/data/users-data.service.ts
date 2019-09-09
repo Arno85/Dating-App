@@ -23,10 +23,11 @@ export class UsersDataService {
     private _http: HttpClient
   ) { }
 
-  public getUsers(page?, itemsPerPage?, userParams?): Observable<PaginatedResult<User[]>> {
+  public getUsers(page?, itemsPerPage?, userParams?, likeParams?): Observable<PaginatedResult<User[]>> {
     const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<User[]>();
-
     let params = new HttpParams();
+
+    console.log(likeParams);
 
     if (page !== null && itemsPerPage !== null) {
       params = params.append('pageNumber', page.toString());
@@ -38,6 +39,14 @@ export class UsersDataService {
       params = params.append('maxAge', userParams.maxAge);
       params = params.append('gender', userParams.gender);
       params = params.append('orderBy', userParams.orderBy);
+    }
+
+    if (likeParams === 'Likers') {
+      params = params.append('likers', 'true');
+    }
+
+    if (likeParams === 'Likees') {
+      params = params.append('likees', 'true');
     }
 
     return this._http.get<User[]>(`${this._apiUrl}${this._controller}`, { observe: 'response', params })
@@ -68,6 +77,10 @@ export class UsersDataService {
 
   public deletePhoto(userId: number, photoId: number): Observable<void> {
     return this._http.delete<void>(`${this._apiUrl}${this._controller}${userId}/photos/${photoId}`);
+  }
+
+  public sendLike(userId: number, recipientId: number): Observable<void> {
+    return this._http.post<void>(`${this._apiUrl}${this._controller}${userId}/like/${recipientId}`, {});
   }
 
   /* #endregion */

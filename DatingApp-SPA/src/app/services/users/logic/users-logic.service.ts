@@ -16,8 +16,8 @@ export class UsersLogicService {
     private _usersDataService: UsersDataService
   ) { }
 
-  public getUsers(pageNumber = null, pageSize = null, userParams = null): Observable<PaginatedResult<User[]>> {
-    return this._usersDataService.getUsers(pageNumber, pageSize, userParams).pipe(
+  public getUsers(pageNumber = null, pageSize = null, userParams = null, likeParams = null): Observable<PaginatedResult<User[]>> {
+    return this._usersDataService.getUsers(pageNumber, pageSize, userParams, likeParams).pipe(
       tap(users => {
         return users.result.forEach(u => this._modifyUser(u));
       })
@@ -40,6 +40,10 @@ export class UsersLogicService {
 
   public deletePhoto(userId: number, photoId: number): Observable<void> {
     return this._usersDataService.deletePhoto(userId, photoId);
+  }
+
+  public sendLike(userId: number, recipientId: number): Observable<void> {
+    return this._usersDataService.sendLike(userId, recipientId);
   }
 
   private _userToUpdateUserDto(user: User): UserForUpdateDto {

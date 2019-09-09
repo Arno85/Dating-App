@@ -16,6 +16,8 @@ import { UnsavedChangesGuard } from 'src/app/guards/unsavedChanges/unsaved-chang
 import { PhotoEditorComponent } from './members-edit/photo-editor/photo-editor.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { TimeAgoPipe } from 'time-ago-pipe';
+import { ListResolver } from 'src/app/resolvers/list.resolver';
+import { ListsComponent } from '../lists/lists.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { TimeAgoPipe } from 'time-ago-pipe';
     MembersDetailComponent,
     MembersEditComponent,
     PhotoEditorComponent,
-    TimeAgoPipe
+    TimeAgoPipe,
+    ListsComponent
   ],
   imports: [
     CommonModule,
@@ -42,6 +45,7 @@ import { TimeAgoPipe } from 'time-ago-pipe';
     UsersDataService,
     MemberDetailResolver,
     MemberEditResolver,
+    ListResolver,
     UnsavedChangesGuard
   ],
   exports: [
@@ -49,7 +53,8 @@ import { TimeAgoPipe } from 'time-ago-pipe';
     MembersCardComponent,
     MembersDetailComponent,
     MembersEditComponent,
-    PhotoEditorComponent
+    PhotoEditorComponent,
+    ListsComponent
   ]
 })
 export class MembersModule { }
