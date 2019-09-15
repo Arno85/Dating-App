@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DatingApp.API.Models.Messages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -42,5 +43,9 @@ namespace DatingApp.API.Models.Users
         public ICollection<Like> Likers { get; set; }
 
         public ICollection<Like> Likees { get; set; }
+
+        public ICollection<Message> MessagesSent { get; set; }
+
+        public ICollection<Message> MessagesReceived { get; set; }
     }
 }

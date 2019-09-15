@@ -1,4 +1,4 @@
-import { User } from 'src/app/models/users/user.model';
+import { User } from 'src/app/models/user.model';
 
 export interface ResponseAuth {
   token: string;

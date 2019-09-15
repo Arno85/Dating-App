@@ -1,24 +1,23 @@
-import { AppRoutingModule } from './app-routing.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BrowserModule } from '@angular/platform-browser';
-import { HomeModule } from './components/home/home.module';
-import { HttpClientModule } from '@angular/common/http';
-import { JwtModule } from '@auth0/angular-jwt';
-import { NgModule } from '@angular/core';
-
+import { environment } from 'src/environments/environment';
+import { AuthGuard } from 'src/shared/guards/auth/auth.guard';
 import { errorInterceptorProvider } from 'src/shared/http-interceptors/error-interceptor';
 import { NotificationsService } from 'src/shared/services/notifications/notifications.service';
-import { AuthGuard } from 'src/shared/guards/auth/auth.guard';
 import { StorageService } from 'src/shared/services/storage/storage.service';
 
-import { environment } from 'src/environments/environment';
+import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { JwtModule } from '@auth0/angular-jwt';
 
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavModule } from './components/nav/nav.module';
-import { RegisterModule } from './components/register/register.module';
-import { MessagesModule } from './components/messages/messages.module';
+import { HomeModule } from './components/home/home.module';
 import { ListsModule } from './components/lists/lists.module';
 import { MembersModule } from './components/members/members.module';
+import { MessagesModule } from './components/messages/messages.module';
+import { NavModule } from './components/nav/nav.module';
+import { RegisterModule } from './components/register/register.module';
 
 export function tokenGetter() {
   const storageService = new StorageService();
@@ -33,7 +32,7 @@ export function tokenGetter() {
     AppComponent
   ],
   imports: [
-  BrowserModule,
+    BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -41,13 +40,14 @@ export function tokenGetter() {
       config: {
         tokenGetter,
         whitelistedDomains: ['localhost:5000'],
-        blacklistedRoutes : ['localhost:5000/api/auth']
+        blacklistedRoutes: ['localhost:5000/api/auth']
       }
     }),
     NavModule,
     HomeModule,
     RegisterModule,
     MembersModule,
+    ListsModule,
     MessagesModule
   ],
   providers: [

@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { UsersLogicService } from './../services/users/logic/users-logic.service';
 import { Router, ActivatedRouteSnapshot } from '@angular/router';
 import { NotificationsService } from 'src/shared/services/notifications/notifications.service';
 import { catchError } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
-import { User } from '../models/users/user.model';
 import { PaginatedResult } from 'src/shared/models/pagination/pagination.model';
+import { UsersService } from '../services/users/users.service';
+import { User } from '../models/user.model';
 
 @Injectable()
 export class ListResolver {
@@ -14,7 +14,7 @@ export class ListResolver {
   likeParams = 'Likers';
 
   constructor(
-    private _userService: UsersLogicService,
+    private _userService: UsersService,
     private _router: Router,
     private _notificationsService: NotificationsService
   ) { }

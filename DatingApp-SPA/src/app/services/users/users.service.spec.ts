@@ -1,22 +1,23 @@
 /* tslint:disable:no-unused-variable */
 
-import { TestBed, inject } from '@angular/core/testing';
-import { UsersLogicService } from './users-logic.service';
 import { HttpClientModule } from '@angular/common/http';
+import { inject, TestBed } from '@angular/core/testing';
 
-describe('Service: UsersLogic', () => {
+import { UsersService } from './users.service';
+
+describe('Service: UsersData', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientModule
       ],
       providers: [
-        UsersLogicService
+        UsersService
       ]
     });
   });
 
-  it('should ...', inject([UsersLogicService], (service: UsersLogicService) => {
+  it('should ...', inject([UsersService], (service: UsersService) => {
     expect(service).toBeTruthy();
   }));
 });

@@ -3,7 +3,7 @@
 - date of birth min 18y
 - Add "Interested in" (male / female) in register, profile and edit.
 - Please wait.. when filtering members list
-- problem knowAs in menmbaer detail.
 - problem photo inside navbar after logout and login with somebody else
 - not be able to click on like if already liked.
 - resolver for the matches page.
+- bilingual (FR / EN)

@@ -1,12 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { UsersLogicService } from 'src/app/services/users/logic/users-logic.service';
-import { NotificationsService } from 'src/shared/services/notifications/notifications.service';
-import { User } from 'src/app/models/users/user.model';
-import { Pagination, PaginatedResult } from 'src/shared/models/pagination/pagination.model';
-import { StorageService } from 'src/shared/services/storage/storage.service';
-import { AuthLogicService } from 'src/shared/services/auth/logic/auth-logic.service';
-import { MaxLengthValidator } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { User } from 'src/app/models/user.model';
+import { UsersService } from 'src/app/services/users/users.service';
+import { PaginatedResult, Pagination } from 'src/shared/models/pagination/pagination.model';
+import { AuthLogicService } from 'src/shared/services/auth/logic/auth-logic.service';
+import { NotificationsService } from 'src/shared/services/notifications/notifications.service';
+
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-list-members',
@@ -24,7 +23,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
   private _subscriptions = new Subscription();
 
   constructor(
-    private _usersLogicService: UsersLogicService,
+    private _usersService: UsersService,
     private _notificationsService: NotificationsService,
     private _authService: AuthLogicService
   ) { }
@@ -55,7 +54,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
 
   public loadUsers(): void {
     this._subscriptions.add(
-      this._usersLogicService.getUsers(this.pagination.currentPage, this.pagination.itemsPerPage, this.userParams)
+      this._usersService.getUsers(this.pagination.currentPage, this.pagination.itemsPerPage, this.userParams)
         .subscribe((users: PaginatedResult<User[]>) => {
           this.users = users.result;
           this.pagination = users.pagination;

@@ -1,0 +1,37 @@
+table
+{
+    margin-top: 15px;
+
+    cursor: pointer;
+
+    th
+    {
+        width: 20%;
+
+        &:first-of-type
+        {
+            width: 50%;
+        }
+
+        &:last-of-type
+        {
+            width: 10%;
+        }
+    }
+    td
+    {
+        vertical-align: middle;
+
+        &:last-of-type
+        {
+            text-align: right;
+        }
+    }
+
+    .img-circle
+    {
+        max-height: 40px;
+    }
+}
+
+

@@ -1,9 +1,8 @@
 ﻿using DatingApp.API.Data.AppRepo;
 using DatingApp.API.Helpers;
+using DatingApp.API.Models.Messages;
 using DatingApp.API.Models.Users;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace DatingApp.API.Data.UsersRepository
@@ -15,5 +14,11 @@ namespace DatingApp.API.Data.UsersRepository
         Task<User> GetUser(int id);
 
         Task<Like> GetLike(int userId, int recipientId);
+
+        Task<Message> GetMessage(int id);
+
+        Task<PagedList<Message>> GetMessages(MessageParams messageParams);
+
+        Task<IEnumerable<Message>> GetMessageThread(int userId, int recipientId);
     }
 }
