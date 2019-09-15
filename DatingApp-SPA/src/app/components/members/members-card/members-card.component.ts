@@ -1,9 +1,11 @@
-import { Component, Input, OnDestroy } from '@angular/core';
-import { User } from 'src/app/models/users/user.model';
-import { AuthLogicService } from './../../../../../shared/services/auth/logic/auth-logic.service';
-import { UsersLogicService } from 'src/app/services/users/logic/users-logic.service';
-import { NotificationsService } from './../../../../../shared/services/notifications/notifications.service';
 import { Subscription } from 'rxjs';
+import { User } from 'src/app/models/user.model';
+import { UsersService } from 'src/app/services/users/users.service';
+import { NotificationsService } from 'src/shared/services/notifications/notifications.service';
+
+import { Component, Input, OnDestroy } from '@angular/core';
+
+import { AuthLogicService } from '../../../../shared/services/auth/logic/auth-logic.service';
 
 @Component({
   selector: 'app-members-card',
@@ -18,7 +20,7 @@ export class MembersCardComponent implements OnDestroy {
 
   constructor(
     private _authSevice: AuthLogicService,
-    private _userService: UsersLogicService,
+    private _userService: UsersService,
     private _notificationService: NotificationsService
   ) { }
 

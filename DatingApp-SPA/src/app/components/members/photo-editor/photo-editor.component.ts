@@ -1,11 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
+import { Photo } from 'src/app/models/photo.model';
+import { UsersService } from 'src/app/services/users/users.service';
 import { environment } from 'src/environments/environment';
-import { AuthLogicService } from './../../../../../shared/services/auth/logic/auth-logic.service';
-import { UsersLogicService } from 'src/app/services/users/logic/users-logic.service';
 import { NotificationsService } from 'src/shared/services/notifications/notifications.service';
-import { Photo } from 'src/app/models/users/photo.model';
 
+import { Component, Input, OnInit } from '@angular/core';
+
+import { AuthLogicService } from '../../../../shared/services/auth/logic/auth-logic.service';
 
 @Component({
   selector: 'app-photo-editor',
@@ -24,7 +25,7 @@ export class PhotoEditorComponent implements OnInit {
 
   constructor(
     private _authLogicService: AuthLogicService,
-    private _userService: UsersLogicService,
+    private _userService: UsersService,
     private _notificationsService: NotificationsService) { }
 
   public ngOnInit(): void {

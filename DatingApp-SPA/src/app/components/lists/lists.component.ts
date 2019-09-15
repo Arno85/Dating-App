@@ -1,11 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { User } from 'src/app/models/users/user.model';
-import { Pagination, PaginatedResult } from 'src/shared/models/pagination/pagination.model';
-import { AuthLogicService } from './../../../shared/services/auth/logic/auth-logic.service';
-import { UsersLogicService } from './../../services/users/logic/users-logic.service';
-import { ActivatedRoute } from '@angular/router';
-import { NotificationsService } from 'src/shared/services/notifications/notifications.service';
 import { Subscription } from 'rxjs';
+import { User } from 'src/app/models/user.model';
+import { UsersService } from 'src/app/services/users/users.service';
+import { PaginatedResult, Pagination } from 'src/shared/models/pagination/pagination.model';
+import { NotificationsService } from 'src/shared/services/notifications/notifications.service';
+
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-lists',
@@ -14,14 +14,13 @@ import { Subscription } from 'rxjs';
 })
 export class ListsComponent implements OnInit, OnDestroy {
   public users: User[];
-  public pagination: Pagination;
+  public pagination: Pagination = new Pagination();
   public likeParams: string;
 
   private _subscriptions = new Subscription();
 
   constructor(
-    private _authService: AuthLogicService,
-    private _usersService: UsersLogicService,
+    private _usersService: UsersService,
     private _route: ActivatedRoute,
     private _notificationsService: NotificationsService
   ) { }
@@ -47,7 +46,6 @@ export class ListsComponent implements OnInit, OnDestroy {
   }
 
   public loadUsers(): void {
-    console.log(this.likeParams);
     this._subscriptions.add(
       this._usersService.getUsers(this.pagination.currentPage, this.pagination.itemsPerPage, null, this.likeParams)
         .subscribe((users: PaginatedResult<User[]>) => {

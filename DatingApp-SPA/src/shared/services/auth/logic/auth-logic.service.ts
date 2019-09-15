@@ -10,7 +10,7 @@ import { NotificationsService } from '../../notifications/notifications.service'
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
 import { ResponseAuth } from 'src/shared/models/auth/responseAuth.model';
-import { User } from 'src/app/models/users/user.model';
+import { User } from 'src/app/models/user.model';
 
 @Injectable({
   providedIn: 'root'

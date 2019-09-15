@@ -1,9 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { User } from 'src/app/models/user.model';
 import { UserToLogin } from 'src/shared/dtos/auth/UserToLogin';
 import { AuthLogicService } from 'src/shared/services/auth/logic/auth-logic.service';
 import { ILogin } from 'src/shared/services/auth/logic/ILogin';
-import { User } from 'src/app/models/users/user.model';
-import { Subscription } from 'rxjs';
+
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-login',
@@ -34,7 +35,7 @@ export class LoginComponent implements OnInit, OnDestroy, ILogin {
 
     this._subscription.add(
       this._authLogicService.currentPhotoUrl.subscribe(photoUrl => {
-        this.photoUrl = photoUrl;
+        this.photoUrl = photoUrl || '';
       })
     );
   }

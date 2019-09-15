@@ -1,13 +1,15 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { UserToRegister } from '../../../shared/dtos/auth/UserToRegister';
-import { Router } from '@angular/router';
+import { BsDatepickerConfig } from 'ngx-bootstrap';
+import { Observable, Subscription } from 'rxjs';
+import { Country } from 'src/app/models/country.model';
+import { CountriesService } from 'src/app/services/countries/countries.service';
 import { AuthLogicService } from 'src/shared/services/auth/logic/auth-logic.service';
 import { IRegister } from 'src/shared/services/auth/logic/IRegister';
-import { Subscription, Observable } from 'rxjs';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { BsDatepickerConfig } from 'ngx-bootstrap';
-import { CountriesLogicService } from 'src/app/services/countries/logic/countries-logic.service';
-import { Country } from 'src/app/models/countries/country.model';
+
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+
+import { UserToRegister } from '../../../shared/dtos/auth/UserToRegister';
 
 @Component({
   selector: 'app-register',
@@ -34,7 +36,7 @@ export class RegisterComponent implements IRegister, OnInit, OnDestroy {
     private _authLogicService: AuthLogicService,
     private _router: Router,
     private _fb: FormBuilder,
-    private _countriesService: CountriesLogicService
+    private _countriesService: CountriesService
   ) { }
 
   public ngOnInit(): void {

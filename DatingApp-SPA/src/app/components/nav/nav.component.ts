@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthLogicService } from './../../../shared/services/auth/logic/auth-logic.service';
+
+import { AuthLogicService } from '../../../shared/services/auth/logic/auth-logic.service';
 
 @Component({
   selector: 'app-nav',

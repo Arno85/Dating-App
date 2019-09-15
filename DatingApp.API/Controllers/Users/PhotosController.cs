@@ -53,7 +53,7 @@ namespace DatingApp.API.Controllers.Users
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddPhotoForUser(int id, [FromForm]PhotoForCreationDto photoForCreationDto)
+        public async Task<IActionResult> AddPhoto(int id, [FromForm]PhotoForCreationDto photoForCreationDto)
         {
             if (checkUser(id))
             {
@@ -85,7 +85,7 @@ namespace DatingApp.API.Controllers.Users
         }
 
         [HttpPost("{photoId}/setMain")]
-        public async Task<IActionResult> setMainPhoto(int id, int photoId)
+        public async Task<IActionResult> SetMainPhoto(int id, int photoId)
         {
             if (checkUser(id))
             {

@@ -1,13 +1,14 @@
+import { AuthDataService } from 'src/shared/services/auth/data/auth-data.service';
+import { AuthLogicService } from 'src/shared/services/auth/logic/auth-logic.service';
+
+import { HttpClientModule } from '@angular/common/http';
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { NavComponent } from './nav.component';
-import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
+
 import { LoginComponent } from './login/login.component';
-import { AuthLogicService } from 'src/shared/services/auth/logic/auth-logic.service';
-import { AuthDataService } from 'src/shared/services/auth/data/auth-data.service';
-import { HttpClientModule } from '@angular/common/http';
+import { NavComponent } from './nav.component';
 
 describe('NavComponent', () => {
   let component: NavComponent;

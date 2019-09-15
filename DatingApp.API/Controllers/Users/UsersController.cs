@@ -57,7 +57,7 @@ namespace DatingApp.API.Controllers.Users
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(int id, UserForUpdateDto userForUpdateDto)
         {
-            if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            if (checkUser(id))
             {
                 return Unauthorized();
             }
@@ -78,7 +78,7 @@ namespace DatingApp.API.Controllers.Users
         [HttpPost("{id}/like/{recipientId}")]
         public async Task<IActionResult> LikeUser(int id, int recipientId)
         {
-            if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            if (checkUser(id))
             {
                 return Unauthorized();
             }
@@ -109,6 +109,11 @@ namespace DatingApp.API.Controllers.Users
             }
 
             return BadRequest("Failed to like user");
+        }
+
+        private bool checkUser(int userId)
+        {
+            return userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
         }
     }
 }

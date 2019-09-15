@@ -22,6 +22,11 @@ export class ErrorInterceptor implements HttpInterceptor {
             return throwError(error.statusText);
           }
 
+          // Handle NotFound Errors (Status: 404)
+          if (error.status === 404) {
+            return throwError(error.statusText);
+          }
+
           // Handle Exceptions Errors (Status: 500)
           const applicationError = error.headers.get('Application-Error');
           if (applicationError) {
@@ -29,7 +34,7 @@ export class ErrorInterceptor implements HttpInterceptor {
             return throwError(applicationError);
           }
 
-          // Handle ModalState Errors (Status: 400)
+          // Handle Bad Request Errors (Status: 400)
           const serverError = error.error;
           let modalStateErrors = '';
           if (serverError) {

@@ -1,25 +1,33 @@
-import { NgModule } from '@angular/core';
+import { ButtonsModule, PaginationModule } from 'ngx-bootstrap';
+import { MatchesListResolver } from 'src/app/resolvers/matches-list.resolver';
+import { UsersService } from 'src/app/services/users/users.service';
+
 import { CommonModule } from '@angular/common';
-import { ListsComponent } from './lists.component';
-import { ListResolver } from 'src/app/resolvers/list.resolver';
-import { PaginationModule, ButtonsModule } from 'ngx-bootstrap';
-import { RouterModule } from '@angular/router';
-import { UsersLogicService } from 'src/app/services/users/logic/users-logic.service';
-import { UsersDataService } from 'src/app/services/users/data/users-data.service';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+
+import { SharedModule } from '../shared.module';
+import { ListsComponent } from './lists.component';
 
 @NgModule({
   declarations: [
-
+    ListsComponent
   ],
   imports: [
-
+    CommonModule,
+    RouterModule.forRoot([]),
+    FormsModule,
+    SharedModule,
+    PaginationModule.forRoot(),
+    ButtonsModule.forRoot()
   ],
   providers: [
-
+    UsersService,
+    MatchesListResolver
   ],
   exports: [
-
+    ListsComponent
   ]
 })
 export class ListsModule { }

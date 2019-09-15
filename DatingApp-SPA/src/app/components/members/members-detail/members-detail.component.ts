@@ -1,9 +1,12 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { UsersLogicService } from 'src/app/services/users/logic/users-logic.service';
-import { User } from 'src/app/models/users/user.model';
+import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from 'ngx-gallery';
+import { User } from 'src/app/models/user.model';
+import { UsersService } from 'src/app/services/users/users.service';
 import { NotificationsService } from 'src/shared/services/notifications/notifications.service';
+
+import { Component, OnInit, ViewEncapsulation, OnDestroy, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gallery';
+import { Subscription } from 'rxjs';
+import { TabsetComponent } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-members-detail',
@@ -11,31 +14,42 @@ import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gal
   styleUrls: ['./members-detail.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class MembersDetailComponent implements OnInit {
+export class MembersDetailComponent implements OnInit, OnDestroy {
+
+  @ViewChild('memberTabs') public memberTabs: TabsetComponent;
 
   public user: User;
   public galleryOptions: NgxGalleryOptions[] = new Array<NgxGalleryOptions>();
   public galleryImages: NgxGalleryImage[] = new Array<NgxGalleryImage>();
 
+  private _subscriptions = new Subscription();
+
   constructor(
-    private _usersService: UsersLogicService,
+    private _usersService: UsersService,
     private _notificationsService: NotificationsService,
     private _route: ActivatedRoute
   ) { }
 
   public ngOnInit(): void {
-    this._loadUser();
+    setTimeout(() => {
+      this.galleryOptions = this.getOptions();
+    });
+
+    this._subscriptions.add(
+      this._route.data.subscribe(data => {
+        this.user = data['user'];
+        this.galleryImages = this.getImages();
+      })
+    );
+
+    this._route.queryParams.subscribe(params => {
+      const selectedTab = params['tab'];
+      this.memberTabs.tabs[selectedTab > 0 ? selectedTab : 0].active = true;
+    });
   }
 
-  public _loadUser(): void {
-    const userId = parseInt(this._route.snapshot.params['id'], 10);
-    this._usersService.getUser(userId).subscribe(user => {
-      this.user = user;
-      this.galleryOptions = this.getOptions();
-      this.galleryImages = this.getImages();
-    }, (error => {
-      this._notificationsService.error(error);
-    }));
+  public ngOnDestroy(): void {
+    this._subscriptions.unsubscribe();
   }
 
   public getImages(): NgxGalleryImage[] {
@@ -64,6 +78,10 @@ export class MembersDetailComponent implements OnInit {
         preview: false
       }
     ] as NgxGalleryOptions[];
+  }
+
+  public selectTab(tabId: number): void {
+    this.memberTabs.tabs[tabId].active = true;
   }
 
 }

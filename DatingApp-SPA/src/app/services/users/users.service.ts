@@ -1,16 +1,16 @@
-import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
-import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { User } from 'src/app/models/users/user.model';
-import { UserForUpdateDto } from 'src/app/dtos/users/userForUpdate.dto';
+import { map, tap } from 'rxjs/operators';
+import { User } from 'src/app/models/user.model';
+import { environment } from 'src/environments/environment';
 import { PaginatedResult } from 'src/shared/models/pagination/pagination.model';
-import { map } from 'rxjs/operators';
+
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UsersDataService {
+export class UsersService {
 
   /* #region [PrivateProperties] */
   private readonly _apiUrl = environment.apiUrl;
@@ -26,8 +26,6 @@ export class UsersDataService {
   public getUsers(page?, itemsPerPage?, userParams?, likeParams?): Observable<PaginatedResult<User[]>> {
     const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<User[]>();
     let params = new HttpParams();
-
-    console.log(likeParams);
 
     if (page !== null && itemsPerPage !== null) {
       params = params.append('pageNumber', page.toString());
@@ -59,7 +57,10 @@ export class UsersDataService {
           }
 
           return paginatedResult;
-        })
+        }),
+        tap(users => {
+          return users.result.forEach(u => this._modifyUser(u));
+        }),
       );
   }
 
@@ -67,7 +68,7 @@ export class UsersDataService {
     return this._http.get<User>(`${this._apiUrl}${this._controller}${id}`);
   }
 
-  public updateUser(id: number, user: UserForUpdateDto): Observable<void> {
+  public updateUser(id: number, user: User): Observable<void> {
     return this._http.put<void>(`${this._apiUrl}${this._controller}${id}`, user);
   }
 
@@ -84,5 +85,11 @@ export class UsersDataService {
   }
 
   /* #endregion */
+
+  private _modifyUser(u: User): User {
+    u.photoUrl = u.photoUrl ? u.photoUrl : environment.defaultProfileImgPath;
+    u.dateOfBirth = new Date(u.dateOfBirth);
+    return u;
+  }
 
 }

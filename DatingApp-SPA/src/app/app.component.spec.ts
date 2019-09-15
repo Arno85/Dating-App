@@ -1,19 +1,21 @@
-import { TestBed, async } from '@angular/core/testing';
-import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
-import { AppRoutingModule } from './app-routing.module';
-import { NavModule } from './components/nav/nav.module';
-import { HomeModule } from './components/home/home.module';
-import { RegisterModule } from './components/register/register.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthGuard } from 'src/shared/guards/auth/auth.guard';
 import { errorInterceptorProvider } from 'src/shared/http-interceptors/error-interceptor';
+import { NotificationsService } from 'src/shared/services/notifications/notifications.service';
+
+import { APP_BASE_HREF } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { async, TestBed } from '@angular/core/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JwtModule } from '@auth0/angular-jwt';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { HomeModule } from './components/home/home.module';
+import { ListsModule } from './components/lists/lists.module';
 import { MembersModule } from './components/members/members.module';
 import { MessagesModule } from './components/messages/messages.module';
-import { ListsModule } from './components/lists/lists.module';
-import { NotificationsService } from 'src/shared/services/notifications/notifications.service';
-import { AuthGuard } from 'src/shared/guards/auth/auth.guard';
-import { APP_BASE_HREF } from '@angular/common';
+import { NavModule } from './components/nav/nav.module';
+import { RegisterModule } from './components/register/register.module';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {

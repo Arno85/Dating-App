@@ -1,11 +1,14 @@
+import { AuthDataService } from 'src/shared/services/auth/data/auth-data.service';
+import { AuthLogicService } from 'src/shared/services/auth/logic/auth-logic.service';
+
+import { HttpClientModule } from '@angular/common/http';
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule } from '@angular/forms';
-import { RegisterComponent } from './register.component';
-import { AuthLogicService } from 'src/shared/services/auth/logic/auth-logic.service';
-import { AuthDataService } from 'src/shared/services/auth/data/auth-data.service';
-import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
+
+import { RegisterComponent } from './register.component';
+import { BsDatepickerModule } from 'ngx-bootstrap';
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
@@ -15,6 +18,8 @@ describe('RegisterComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         FormsModule,
+        ReactiveFormsModule,
+        BsDatepickerModule.forRoot(),
         HttpClientModule,
         RouterTestingModule
       ],
