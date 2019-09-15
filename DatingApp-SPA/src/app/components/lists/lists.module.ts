@@ -1,13 +1,13 @@
-import { ButtonsModule, PaginationModule } from 'ngx-bootstrap';
 import { MatchesListResolver } from 'src/app/resolvers/matches-list.resolver';
 import { UsersService } from 'src/app/services/users/users.service';
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
 
 import { SharedModule } from '../shared.module';
+import { PaginationModule, ButtonsModule } from 'ngx-bootstrap';
+import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { ListsComponent } from './lists.component';
 
 @NgModule({
