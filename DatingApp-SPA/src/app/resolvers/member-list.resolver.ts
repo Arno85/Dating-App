@@ -10,10 +10,9 @@ import { User } from '../models/user.model';
 import { UsersService } from '../services/users/users.service';
 
 @Injectable()
-export class MatchesListResolver implements Resolve<PaginatedResult<User[]>> {
+export class MemberListResolver implements Resolve<PaginatedResult<User[]>> {
   public pageNumber = 1;
   public pageSize = 5;
-  public likeParams = 'Likers';
 
   constructor(
     private _userService: UsersService,
@@ -22,7 +21,7 @@ export class MatchesListResolver implements Resolve<PaginatedResult<User[]>> {
   ) { }
 
   public resolve(route: ActivatedRouteSnapshot): Observable<PaginatedResult<User[]>> {
-    return this._userService.getUsers(this.pageNumber, this.pageSize, null, this.likeParams)
+    return this._userService.getUsers(this.pageNumber, this.pageSize)
       .pipe(
         catchError(() => {
           this._notificationsService.error('Problem retrieving the data');

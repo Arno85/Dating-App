@@ -1,6 +1,7 @@
 ﻿using DatingApp.API.Models.Messages;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -47,5 +48,8 @@ namespace DatingApp.API.Models.Users
         public ICollection<Message> MessagesSent { get; set; }
 
         public ICollection<Message> MessagesReceived { get; set; }
+
+        [NotMapped]
+        public bool IsLikedByUser { get; set; } = false;
     }
 }

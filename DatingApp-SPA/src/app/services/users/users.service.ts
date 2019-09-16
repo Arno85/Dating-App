@@ -23,7 +23,7 @@ export class UsersService {
     private _http: HttpClient
   ) { }
 
-  public getUsers(page?, itemsPerPage?, userParams?, likeParams?): Observable<PaginatedResult<User[]>> {
+  public getUsers(page?, itemsPerPage?, userParams = null, likeParams = null): Observable<PaginatedResult<User[]>> {
     const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<User[]>();
     let params = new HttpParams();
 

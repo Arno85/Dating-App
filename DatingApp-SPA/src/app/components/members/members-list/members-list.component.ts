@@ -6,6 +6,7 @@ import { AuthLogicService } from 'src/shared/services/auth/logic/auth-logic.serv
 import { NotificationsService } from 'src/shared/services/notifications/notifications.service';
 
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-list-members',
@@ -19,10 +20,12 @@ export class MembersListComponent implements OnInit, OnDestroy {
   public genderList = [{ value: 'male', display: 'Males' }, { value: 'female', display: 'Females' }];
   public userParams: any = {};
   public pagination: Pagination = new Pagination();
+  public isLoading = false;
 
   private _subscriptions = new Subscription();
 
   constructor(
+    private _route: ActivatedRoute,
     private _usersService: UsersService,
     private _notificationsService: NotificationsService,
     private _authService: AuthLogicService
@@ -32,7 +35,14 @@ export class MembersListComponent implements OnInit, OnDestroy {
     this.pagination.itemsPerPage = 5;
     this.pagination.currentPage = 1;
     this.user = this._authService.getCurrentUserFromStorage();
-    this.resetFilters();
+    this._route.data.subscribe(data => {
+      this.users = data['users'].result;
+      this.pagination = data['users'].pagination;
+      this.userParams.gender = this.user.gender === 'female' ? 'male' : 'female';
+      this.userParams.minAge = 18;
+      this.userParams.maxAge = 99;
+      this.userParams.orderBy = 'lastActive';
+    });
   }
 
   public ngOnDestroy(): void {
@@ -45,19 +55,17 @@ export class MembersListComponent implements OnInit, OnDestroy {
   }
 
   public resetFilters(): void {
-    this.userParams.gender = this.user.gender === 'female' ? 'male' : 'female';
-    this.userParams.minAge = 18;
-    this.userParams.maxAge = 99;
-    this.userParams.orderBy = 'lastActive';
     this.loadUsers();
   }
 
   public loadUsers(): void {
+    this.isLoading = true;
     this._subscriptions.add(
       this._usersService.getUsers(this.pagination.currentPage, this.pagination.itemsPerPage, this.userParams)
         .subscribe((users: PaginatedResult<User[]>) => {
           this.users = users.result;
           this.pagination = users.pagination;
+          this.isLoading = false;
         }, error => {
           this._notificationsService.error(error);
         })

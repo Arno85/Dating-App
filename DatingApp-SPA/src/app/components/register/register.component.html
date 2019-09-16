@@ -90,7 +90,7 @@
         </div>
 
         <div class="form-group">
-          <input [ngClass]="{'is-invalid': anyValidationError('dateOfBirth'), 'is-valid': allGood('dateOfBirth')}"
+          <input [ngClass]="{'is-invalid': anyValidationError('dateOfBirth') || minAgeMatchValidation(), 'is-valid': allGood('dateOfBirth')}"
                  class="form-control"
                  placeholder="Date of Birth"
                  formControlName="dateOfBirth"
@@ -99,6 +99,8 @@
                  [bsConfig]="bsConfig">
           <div class="invalid-feedback"
                *ngIf="specificValidationError('dateOfBirth', 'required')">Date of Birth is required</div>
+          <div class="invalid-feedback"
+               *ngIf="minAgeMatchValidation()">Your age must be at least 18 years old</div>
         </div>
 
         <div class="form-group">

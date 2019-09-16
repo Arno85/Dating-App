@@ -20,6 +20,10 @@
         <i class="fa fa-paper-plane"></i> Outbox
       </button>
     </div>
+
+    <div class="loading" class="ml-2" *ngIf="isLoading">
+        <mat-spinner  [diameter]="40" ></mat-spinner>
+    </div>
   </div>
 
   <div class="row"

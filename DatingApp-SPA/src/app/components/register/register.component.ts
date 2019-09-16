@@ -71,7 +71,10 @@ export class RegisterComponent implements IRegister, OnInit, OnDestroy {
         country: ['', Validators.required]
       },
       {
-        validator: this._passwordMatchValidator
+        validator: Validators.compose([
+          this._passwordMatchValidator.bind(this),
+          this._minAgeMatchValidator.bind(this)
+        ])
       }
     );
   }
@@ -105,6 +108,12 @@ export class RegisterComponent implements IRegister, OnInit, OnDestroy {
     }
   }
 
+  public minAgeMatchValidation(): boolean {
+    if (this.registerForm.get('dateOfBirth').value !== '') {
+      return this.registerForm.hasError('underAge') && this.registerForm.get('dateOfBirth').touched;
+    }
+  }
+
   public verifyEmail(): void {
     if (!this.registerForm.get('email').errors && this.registerForm.get('email').touched) {
       this._subscription.add(
@@ -131,6 +140,18 @@ export class RegisterComponent implements IRegister, OnInit, OnDestroy {
   /* #region [Private Methods] */
   private _passwordMatchValidator(g: FormGroup) {
     return g.get('password').value === g.get('confirmPassword').value ? null : { mismatch: true };
+  }
+
+  private _minAgeMatchValidator(g: FormGroup) {
+    const dateOfBirthValue = g.get('dateOfBirth').value;
+    const minAgeDate = new Date();
+
+    if (dateOfBirthValue !== null) {
+      minAgeDate.setFullYear( minAgeDate.getFullYear() - 18 );
+      return dateOfBirthValue <= minAgeDate ? null : { underAge: true };
+    }
+
+    return null;
   }
 
   private _setDatePickerConfig(): void {

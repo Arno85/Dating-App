@@ -13,10 +13,11 @@ import { MembersListComponent } from './components/members/members-list/members-
 import { MessagesComponent } from './components/messages/messages.component';
 import { RegisterComponent } from './components/register/register.component';
 import { UnsavedChangesGuard } from './guards/unsavedChanges/unsaved-changes.guard';
-import { MatchesListResolver } from './resolvers/matches-list.resolver';
+import { MemberListResolver } from './resolvers/member-list.resolver';
 import { MemberDetailResolver } from './resolvers/member-detail.resolver';
 import { MemberEditResolver } from './resolvers/member-edit.resolver';
 import { MessagesResolver } from './resolvers/messages.resolver';
+import { ListResolver } from './resolvers/list.resolver';
 
 const routes: Routes = [
   {
@@ -33,10 +34,10 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: 'messages', component: MessagesComponent, resolve : { messages: MessagesResolver } },
-      { path: 'members', component: MembersListComponent },
+      { path: 'members', component: MembersListComponent, resolve : { users: MemberListResolver } },
       { path: 'members/edit', component: MembersEditComponent, resolve: { user: MemberEditResolver }, canDeactivate: [UnsavedChangesGuard] },
       { path: 'members/:id', component: MembersDetailComponent, resolve: { user: MemberDetailResolver } },
-      { path: 'lists', component: ListsComponent, resolve : { users: MatchesListResolver } }
+      { path: 'lists', component: ListsComponent, resolve : { users: ListResolver } }
     ]
   },
   {

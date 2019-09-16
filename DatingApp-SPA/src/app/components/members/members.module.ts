@@ -17,6 +17,9 @@ import { MembersEditComponent } from './members-edit/members-edit.component';
 import { MembersListComponent } from './members-list/members-list.component';
 import { MembersMessagesComponent } from './members-messages/members-messages.component';
 import { PhotoEditorComponent } from './photo-editor/photo-editor.component';
+import { MemberListResolver } from 'src/app/resolvers/member-list.resolver';
+
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -36,11 +39,13 @@ import { PhotoEditorComponent } from './photo-editor/photo-editor.component';
     FileUploadModule,
     BsDatepickerModule.forRoot(),
     PaginationModule.forRoot(),
-    ButtonsModule.forRoot()
+    ButtonsModule.forRoot(),
+    MatProgressSpinnerModule
   ],
   providers: [
     UsersService,
     MemberDetailResolver,
+    MemberListResolver,
     MemberEditResolver,
     UnsavedChangesGuard
   ],

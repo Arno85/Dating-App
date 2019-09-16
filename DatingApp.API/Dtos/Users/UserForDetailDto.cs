@@ -40,5 +40,7 @@ namespace DatingApp.API.Dtos.Users
         public string PhotoUrl { get; set; }
 
         public ICollection<PhotoForDetailDto> Photos { get; set; }
+
+        public bool IsLikedByUser { get; set; }
     }
 }

@@ -45,6 +45,7 @@ export class LoginComponent implements OnInit, OnDestroy, ILogin {
   }
 
   public login(): void {
+    console.log(this.photoUrl);
     this._authLogicService.login(this.userToLogin);
   }
 

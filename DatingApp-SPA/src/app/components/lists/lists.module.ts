@@ -1,4 +1,3 @@
-import { MatchesListResolver } from 'src/app/resolvers/matches-list.resolver';
 import { UsersService } from 'src/app/services/users/users.service';
 
 import { CommonModule } from '@angular/common';
@@ -9,6 +8,7 @@ import { PaginationModule, ButtonsModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ListsComponent } from './lists.component';
+import { ListResolver } from 'src/app/resolvers/list.resolver';
 
 @NgModule({
   declarations: [
@@ -24,7 +24,7 @@ import { ListsComponent } from './lists.component';
   ],
   providers: [
     UsersService,
-    MatchesListResolver
+    ListResolver
   ],
   exports: [
     ListsComponent

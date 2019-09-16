@@ -9,11 +9,11 @@
                 [routerLink]="['/members/', user.id]" [queryParams]="{tab: 3}"><i class="fa fa-user"></i></button>
       </li>
       <li class="list-inline-item">
-        <button class="btn btn-primary"
-                (click)="sendLike(user.id)"><i class="fa fa-heart"></i></button>
+        <button [ngClass]="user.isLikedByUser ? 'btn btn-secondary' : 'btn btn-primary'"
+                (click)="sendLike(user.id)" [disabled]="user.isLikedByUser"><i class="fa fa-heart"></i></button>
       </li>
       <li class="list-inline-item">
-        <button class="btn btn-primary"><i class="fa fa-envelope"></i></button>
+        <button class="btn btn-primary" [routerLink]="['/members', user.id]" [queryParams]="{tab: 3}"><i class="fa fa-envelope"></i></button>
       </li>
     </ul>
   </div>
