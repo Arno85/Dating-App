@@ -11,7 +11,7 @@ namespace DatingApp.API.Data.UsersRepository
     {
         Task<PagedList<User>> GetUsers(UserParams userParams);
 
-        Task<User> GetUser(int id);
+        Task<User> GetUser(int id, int currentUserId = 0);
 
         Task<Like> GetLike(int userId, int recipientId);
 

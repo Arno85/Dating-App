@@ -14,6 +14,7 @@ import { AuthLogicService } from '../../../../shared/services/auth/logic/auth-lo
 })
 export class MembersCardComponent implements OnDestroy {
 
+
   @Input() public user: User;
 
   private _subscriptions = new Subscription();
@@ -32,6 +33,7 @@ export class MembersCardComponent implements OnDestroy {
     this._subscriptions.add(
       this._userService.sendLike(this._authSevice.getUserId(), id).subscribe(res => {
         this._notificationService.success(`You have liked ${this.user.knownAs}`);
+        this.user.isLikedByUser = true;
       }, error => {
         this._notificationService.error(error);
       })

@@ -25,8 +25,6 @@ export class MembersDetailComponent implements OnInit, OnDestroy {
   private _subscriptions = new Subscription();
 
   constructor(
-    private _usersService: UsersService,
-    private _notificationsService: NotificationsService,
     private _route: ActivatedRoute
   ) { }
 

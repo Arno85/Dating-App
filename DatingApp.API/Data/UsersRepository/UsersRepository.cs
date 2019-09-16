@@ -14,9 +14,13 @@ namespace DatingApp.API.Data.UsersRepository
     {
         public UsersRepository(DataContext context) : base(context) { }
 
-        public async Task<User> GetUser(int id)
+        public async Task<User> GetUser(int id, int currentUserId = 0)
         {
-            return await _context.Users.Include(p => p.Photos).FirstOrDefaultAsync(u => u.Id == id);
+            return await _context.Users
+                .Include(p => p.Photos)
+                .Include(u => u.Likers)
+                .Select(u => setIsLikedByUser(u, currentUserId))
+                .FirstOrDefaultAsync(u => u.Id == id);
         }
 
         public async Task<Like> GetLike(int userId, int recipientId)
@@ -29,6 +33,8 @@ namespace DatingApp.API.Data.UsersRepository
         {
             var usersFromDb = _context.Users
                 .Include(p => p.Photos)
+                .Include(u => u.Likers)
+                .Select(u => setIsLikedByUser(u, userParams.UserId))
                 .OrderByDescending(x => x.LastActive)
                 .AsQueryable();
 
@@ -146,6 +152,16 @@ namespace DatingApp.API.Data.UsersRepository
                   )
                  .OrderByDescending(m => m.MessageSent)
                  .ToListAsync();
+        }
+
+        private User setIsLikedByUser(User user, int likerId)
+        {
+            if(user.Likers != null && likerId != null)
+            {
+                user.IsLikedByUser = user.Likers.Any(l => l.LikerId == likerId);
+            }
+            
+            return user;
         }
     }
 }

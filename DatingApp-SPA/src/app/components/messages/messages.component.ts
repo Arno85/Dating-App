@@ -19,6 +19,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
   public messages: Message[];
   public pagination: Pagination;
   public messageContainer = 'Unread';
+  public isLoading = true;
 
   private _subscriptions = new Subscription();
 
@@ -43,12 +44,13 @@ export class MessagesComponent implements OnInit, OnDestroy {
   }
 
   public loadMessages(): void {
-    console.log(this.messageContainer);
+    this.isLoading = true;
     this._subscriptions.add(
       this._messagesService.getMessages(this._authService.getUserId(), this.pagination.currentPage, this.pagination.itemsPerPage, this.messageContainer)
       .subscribe(res => {
         this.messages = res.result;
         this.pagination = res.pagination;
+        this.isLoading = false;
       }, error => {
         this._notificationsService.error(error);
       })

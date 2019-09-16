@@ -9,7 +9,7 @@ import { MembersCardComponent } from '../members-card/members-card.component';
 import { MembersListComponent } from './members-list.component';
 import { FormsModule } from '@angular/forms';
 import { PaginationModule } from 'ngx-bootstrap';
-import { Photo } from 'src/app/models/photo.model';
+import { MemberListResolver } from 'src/app/resolvers/member-list.resolver';
 
 describe('MembersListComponent', () => {
   let component: MembersListComponent;
@@ -28,7 +28,8 @@ describe('MembersListComponent', () => {
         MembersCardComponent
       ],
       providers: [
-        UsersService
+        UsersService,
+        MemberListResolver
       ]
     })
       .compileComponents();

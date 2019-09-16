@@ -34,3 +34,7 @@ select
 {
     display: none;
 }
+
+.loading .mat-progress-spinner circle, .mat-spinner circle {
+  stroke: #F3969A !important;
+}

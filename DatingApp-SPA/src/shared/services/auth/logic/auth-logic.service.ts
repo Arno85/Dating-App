@@ -45,6 +45,7 @@ export class AuthLogicService implements ILogin, IRegister {
       this._setCurrentUserInStorage(response.user);
       // Navigate to members page
       this._router.navigate(['/members']);
+      this._photoUrl.next(response.user.photoUrl);
     }, (error: string) => {
       this._notificationsService.error(error);
     });

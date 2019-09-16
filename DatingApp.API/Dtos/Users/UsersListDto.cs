@@ -28,5 +28,7 @@ namespace DatingApp.API.Dtos.Users
         public string Country { get; set; }
 
         public string PhotoUrl { get; set; }
+
+        public bool IsLikedByUser { get; set; }
     }
 }
