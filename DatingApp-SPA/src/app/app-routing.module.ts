@@ -5,9 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './components/home/home.component';
 import { ListsComponent } from './components/lists/lists.component';
-import {
-    MembersDetailComponent
-} from './components/members/members-detail/members-detail.component';
+import { MembersDetailComponent } from './components/members/members-detail/members-detail.component';
 import { MembersEditComponent } from './components/members/members-edit/members-edit.component';
 import { MembersListComponent } from './components/members/members-list/members-list.component';
 import { MessagesComponent } from './components/messages/messages.component';
