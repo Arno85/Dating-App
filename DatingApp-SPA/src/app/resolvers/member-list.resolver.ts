@@ -12,7 +12,7 @@ import { UsersService } from '../services/users/users.service';
 @Injectable()
 export class MemberListResolver implements Resolve<PaginatedResult<User[]>> {
   public pageNumber = 1;
-  public pageSize = 5;
+  public pageSize = 18;
 
   constructor(
     private _userService: UsersService,

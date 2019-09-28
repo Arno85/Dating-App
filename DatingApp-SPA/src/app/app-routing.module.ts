@@ -31,11 +31,32 @@ const routes: Routes = [
     runGuardsAndResolvers: 'always',
     canActivate: [AuthGuard],
     children: [
-      { path: 'messages', component: MessagesComponent, resolve : { messages: MessagesResolver } },
-      { path: 'members', component: MembersListComponent, resolve : { users: MemberListResolver } },
-      { path: 'members/edit', component: MembersEditComponent, resolve: { user: MemberEditResolver }, canDeactivate: [UnsavedChangesGuard] },
-      { path: 'members/:id', component: MembersDetailComponent, resolve: { user: MemberDetailResolver } },
-      { path: 'lists', component: ListsComponent, resolve : { users: ListResolver } }
+      {
+        path: 'messages',
+        component: MessagesComponent,
+        resolve: { messages: MessagesResolver }
+      },
+      {
+        path: 'members',
+        component: MembersListComponent,
+        resolve: { users: MemberListResolver }
+      },
+      {
+        path: 'members/edit',
+        component: MembersEditComponent,
+        resolve: { user: MemberEditResolver },
+        canDeactivate: [UnsavedChangesGuard]
+      },
+      {
+        path: 'members/:id',
+        component: MembersDetailComponent,
+        resolve: { user: MemberDetailResolver }
+      },
+      {
+        path: 'lists',
+        component: ListsComponent,
+        resolve: { users: ListResolver }
+      }
     ]
   },
   {

@@ -16,7 +16,7 @@ import { TabsetComponent } from 'ngx-bootstrap';
 })
 export class MembersDetailComponent implements OnInit, OnDestroy {
 
-  @ViewChild('memberTabs') public memberTabs: TabsetComponent;
+  @ViewChild('memberTabs', {static: false}) public memberTabs: TabsetComponent;
 
   public user: User;
   public galleryOptions: NgxGalleryOptions[] = new Array<NgxGalleryOptions>();

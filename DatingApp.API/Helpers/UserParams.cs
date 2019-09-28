@@ -11,7 +11,7 @@ namespace DatingApp.API.Helpers
 
         public int PageNumber { get; set; } = 1;
 
-        private int pageSize = 10;
+        private int pageSize = 18;
 
         public int PageSize
         {

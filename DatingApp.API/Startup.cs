@@ -62,7 +62,7 @@ namespace DatingApp.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddJsonOptions(opt =>
                 {
                     opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
@@ -107,11 +107,8 @@ namespace DatingApp.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, Seed seeder)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            // Populate the database with stub data
-            // seeder.SeedUsers();
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -131,19 +128,19 @@ namespace DatingApp.API
                         }
                     });
                 });
-                //app.UseHsts();
             }
 
-            // app.UseHttpsRedirection();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseAuthentication();
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseMvc(routes =>
             {
+                var action = env.IsProduction() ? "Index" : "Default";
+
                 routes.MapSpaFallbackRoute(
                     name: "spa-fallback",
-                    defaults: new { controller = "Fallback", action = "Index" }
+                    defaults: new { controller = "Fallback", action = action }
                 );
             });
         }

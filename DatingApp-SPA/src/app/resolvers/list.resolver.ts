@@ -10,7 +10,7 @@ import { User } from '../models/user.model';
 @Injectable()
 export class ListResolver {
   pageNumber = 1;
-  pageSize = 5;
+  pageSize = 18;
   likeParams = 'Likers';
 
   constructor(

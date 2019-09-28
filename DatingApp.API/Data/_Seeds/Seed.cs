@@ -9,33 +9,27 @@ namespace DatingApp.API.Data.Seeds
 {
     public class Seed
     {
-        private readonly DataContext _context;
-        private readonly IAuthRepository _authRepository;
-
-        public Seed(DataContext context, IAuthRepository authRepository)
+        public static void SeedUsers(DataContext context, IAuthRepository authRepository)
         {
-            _context = context;
-            _authRepository = authRepository;
-        }
-
-        public void SeedUsers()
-        {
-            var userData = System.IO.File.ReadAllText("Data/_Seeds/UserSeedData.json");
-            var users = JsonConvert.DeserializeObject<List<User>>(userData);
-
-            foreach(var user in users)
+            if (!context.Users.Any())
             {
-                byte[] passwordHash, passwordSalt;
-                _authRepository.CreatePasswordHash("password", out passwordHash, out passwordSalt);
+                var userData = System.IO.File.ReadAllText("Data/_Seeds/UserSeedData.json");
+                var users = JsonConvert.DeserializeObject<List<User>>(userData);
 
-                user.PasswordHash = passwordHash;
-                user.PasswordSalt = passwordSalt;
-                user.Username = user.Username.ToLower();
+                foreach (var user in users)
+                {
+                    byte[] passwordHash, passwordSalt;
+                    authRepository.CreatePasswordHash("password07!", out passwordHash, out passwordSalt);
 
-                _context.Users.Add(user);
+                    user.PasswordHash = passwordHash;
+                    user.PasswordSalt = passwordSalt;
+                    user.Username = user.Username.ToLower();
+
+                    context.Users.Add(user);
+                }
+
+                context.SaveChanges();
             }
-
-            _context.SaveChanges();
         }
     }
 }

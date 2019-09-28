@@ -27,7 +27,7 @@ export class MembersEditComponent implements OnInit, OnDestroy {
   public countryList = new Observable<Country[]>();
   public bsConfig: Partial<BsDatepickerConfig>;
 
-  @ViewChild('editForm') public editForm: NgForm;
+  @ViewChild('editForm', {static: false}) public editForm: NgForm;
   /* #endregion */
 
   /* #region [PrivateProperties] */

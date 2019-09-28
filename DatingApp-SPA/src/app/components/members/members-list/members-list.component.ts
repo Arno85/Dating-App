@@ -32,7 +32,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
   ) { }
 
   public ngOnInit(): void {
-    this.pagination.itemsPerPage = 5;
+    this.pagination.itemsPerPage = 18;
     this.pagination.currentPage = 1;
     this.user = this._authService.getCurrentUserFromStorage();
     this._route.data.subscribe(data => {
