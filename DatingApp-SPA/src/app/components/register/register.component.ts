@@ -90,7 +90,7 @@ export class RegisterComponent implements IRegister, OnInit, OnDestroy {
     this._router.navigate(['/home']);
   }
 
-  public anyValidationError(fieldName: string, errorType: string): boolean {
+  public anyValidationError(fieldName: string): boolean {
     return this.registerForm.get(fieldName).errors && this.registerForm.get(fieldName).touched;
   }
 

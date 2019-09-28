@@ -38,7 +38,27 @@ namespace DatingApp.API
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+
+        public void ConfigureDevelopmentServices(IServiceCollection services)
+        {
+            services.AddDbContext<DataContext>(x =>
+            {
+                x.UseLazyLoadingProxies();
+                x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+            });
+            ConfigureServices(services);
+        }
+
+        public void ConfigureProductionServices(IServiceCollection services)
+        {
+            services.AddDbContext<DataContext>(x =>
+            {
+                x.UseLazyLoadingProxies();
+                x.UseMySql(Configuration.GetConnectionString("DefaultConnection"));
+            });
+            ConfigureServices(services);
+        }
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc()
@@ -47,9 +67,9 @@ namespace DatingApp.API
                 {
                     opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                 });
-            services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-			// Add Cross Origin
-			services.AddCors();
+
+            // Add Cross Origin
+            services.AddCors();
             // Add AutoMapper
             services.AddAutoMapper();
             // Add Cloudinary Settings
@@ -69,40 +89,42 @@ namespace DatingApp.API
             Ex: It will create one instance for each HTTP request but will reuse the same instance within the same web request.
             */
             services.AddScoped<IAuthRepository, AuthRepository>();
-			services.AddScoped<ITokenFactory, TokenFactory>();
+            services.AddScoped<ITokenFactory, TokenFactory>();
             services.AddScoped<IUsersRepository, UsersRepository>();
             services.AddScoped<IPhotosRepository, PhotosRepository>();
 
             // Set Authentication
             setAuthentication(services);
 
-			// Set Authorize Attribute to all controllers
-			services.AddMvc(o =>
-			{
-				var policy = new AuthorizationPolicyBuilder()
-					.RequireAuthenticatedUser()
-					.Build();
-				o.Filters.Add(new AuthorizeFilter(policy));
-			});
-		}
+            // Set Authorize Attribute to all controllers
+            services.AddMvc(o =>
+            {
+                var policy = new AuthorizationPolicyBuilder()
+                    .RequireAuthenticatedUser()
+                    .Build();
+                o.Filters.Add(new AuthorizeFilter(policy));
+            });
+        }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, Seed seeder)
         {
+            // Populate the database with stub data
+            // seeder.SeedUsers();
+
             if (env.IsDevelopment())
             {
-                // Populate the database with stub data
-                // seeder.SeedUsers();
                 app.UseDeveloperExceptionPage();
             }
             else
             {
-                app.UseExceptionHandler(builder => {
+                app.UseExceptionHandler(builder =>
+                {
                     builder.Run(async context =>
                     {
                         context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                         var error = context.Features.Get<IExceptionHandlerFeature>();
-                        if(error != null)
+                        if (error != null)
                         {
                             context.Response.AddApplicationError(error.Error.Message);
                             await context.Response.WriteAsync(error.Error.Message);
@@ -114,23 +136,31 @@ namespace DatingApp.API
 
             // app.UseHttpsRedirection();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-			app.UseAuthentication();
-			app.UseMvc();
+            app.UseAuthentication();
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+            app.UseMvc(routes =>
+            {
+                routes.MapSpaFallbackRoute(
+                    name: "spa-fallback",
+                    defaults: new { controller = "Fallback", action = "Index" }
+                );
+            });
         }
 
-		private void setAuthentication(IServiceCollection services)
-		{
-			services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-				.AddJwtBearer(options =>
-				{
-					options.TokenValidationParameters = new TokenValidationParameters
-					{
-						ValidateIssuerSigningKey = true,
-						IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
-						ValidateIssuer = false,
-						ValidateAudience = false
-					};
-				});
-		}
-	}
+        private void setAuthentication(IServiceCollection services)
+        {
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                });
+        }
+    }
 }
