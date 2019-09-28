@@ -16,7 +16,6 @@ DatingApp.API/.vs/DatingApp.API/v16/.suo
 DatingApp.API/.vs/DatingApp.API/
 DatingApp.API/obj/
 DatingApp-SPA/package-lock.json
-DatingApp.API/bin/Debug/netcoreapp2.1/DatingApp.API.deps.json
-
+DatingApp.API/bin/Debug/
 DatingApp.API/bin/Release/
 DatingApp.API/wwwroot/
