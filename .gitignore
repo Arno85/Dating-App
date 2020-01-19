@@ -4,6 +4,7 @@ DatingApp.API/.vs/
 DatingApp.API/bin/
 DatingApp.API/bin/
 DatingApp-SPA/package-lock.json
-
+DatingApp.API/bin/Debug/
+DatingApp.API/bin/Release/
 DatingApp.API/wwwroot/
 .vscode/

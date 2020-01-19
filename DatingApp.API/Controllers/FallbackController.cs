@@ -17,11 +17,5 @@ namespace DatingApp.API.Controllers
             return PhysicalFile(Path.Combine(Directory.GetCurrentDirectory(),
                 "wwwroot", "index.html"), "text/HTML");
         }
-
-        public IActionResult Default()
-        {
-            return PhysicalFile(Path.Combine(Directory.GetCurrentDirectory(),
-                "wwwroot", "default.html"), "text/HTML");
-        }
     }
 }
