@@ -26,7 +26,7 @@
     </div>
   </div>
 
-  <div class="row"
+  <div class="row mt-2"
        *ngIf="messages.length == 0">
     <h3>No messages</h3>
   </div>
@@ -45,15 +45,16 @@
         messageContainer == 'Outbox' ? message.recipientId : message.senderId]" [queryParams]="{tab: 3}">
         <td>{{ message.content }}</td>
         <td>
-          <div *ngIf="messageContainer !== 'Outbox'">
+          <div *ngIf="messageContainer" class="inline-img">
             <img src={{message?.senderPhotoUrl}}
-                 class="img-circle rounded-circle mr-2">
-            <strong>{{ message.senderKnownAs }}</strong>
+                 class="img-circle rounded-circle mx-1"
+                 tooltip="{{ message.senderKnownAs }}">
           </div>
-          <div *ngIf="messageContainer === 'Outbox'">
+          <strong>/</strong>
+          <div *ngIf="messageContainer" class="inline-img">
             <img src={{message?.recipientPhotoUrl}}
-                 class="img-circle rounded-circle mr-2">
-            <strong>{{ message.recipientKnownAs }}</strong>
+                 class="img-circle rounded-circle mx-1"
+                 tooltip="{{ message.recipientKnownAs }}">
           </div>
         </td>
         <td>{{ message.messageSent | timeAgo }}</td>

@@ -1,46 +1,55 @@
-.img.img-thumbnail
-{
+.photo {
+  position: relative;
+
+  .img.img-thumbnail {
     min-width: 100px !important;
     height: 100px;
     margin-bottom: 2px;
+  }
+
+  span {
+    width: calc(100% - 30px);
+    left: 15px;
+    top: 15px;
+    position: absolute;
+    text-align: center;
+    color: #FF7851;
+  }
+
+  .approval {
+    opacity: 0.3;
+  }
 }
 
-.my-drop-zone
-{
-    box-sizing: border-box;
-    padding: 16px;
+.my-drop-zone {
+  box-sizing: border-box;
+  padding: 16px;
 
-    &.nv-file-over
-    {
-        padding: 14px;
-
-        border: dotted 3px #f3969a;
-    }
-}
-
-.nv-file-over
-{
+  &.nv-file-over {
     padding: 14px;
+
+    border: dotted 3px #f3969a;
+  }
 }
 
-input[type='file']
-{
-    color: transparent;
+.nv-file-over {
+  padding: 14px;
 }
 
-.btn-photos
-{
-    display: flex;
-
-    margin: 5px 5px 20px;
+input[type="file"] {
+  color: transparent;
 }
 
-.bg-unactive
-{
-    background-color: lightgrey;
+.btn-photos {
+  display: flex;
+
+  margin: 5px 5px 20px;
 }
 
-.btn-queue
-{
-    display: flex;
+.bg-unactive {
+  background-color: lightgrey;
+}
+
+.btn-queue {
+  display: flex;
 }

@@ -5,6 +5,7 @@ import { AuthLogicService } from 'src/shared/services/auth/logic/auth-logic.serv
 import { ILogin } from 'src/shared/services/auth/logic/ILogin';
 
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-login',
@@ -15,12 +16,12 @@ export class LoginComponent implements OnInit, OnDestroy, ILogin {
 
   /* #region [PublicProperties] */
   public userToLogin: UserToLogin = new UserToLogin();
-  public username: string;
+  public currentPhoto = '';
   public currentUser: User;
-  public photoUrl: string;
   /* #endregion */
 
   /* #region [PrivateProperties] */
+  private readonly defaultPhotoUrl = 'assets/img/user.png';
   private _subscription = new Subscription();
   /* #endregion */
 
@@ -29,13 +30,23 @@ export class LoginComponent implements OnInit, OnDestroy, ILogin {
     private _authLogicService: AuthLogicService
   ) { }
 
-  public ngOnInit(): void  {
-    const user = this._authLogicService.getCurrentUserFromStorage();
-    this._authLogicService.changeMemberPhoto(user.photoUrl);
-
+  public ngOnInit(): void {
     this._subscription.add(
-      this._authLogicService.currentPhotoUrl.subscribe(photoUrl => {
-        this.photoUrl = photoUrl || '';
+      this._authLogicService.currentUser.subscribe(user => {
+        if (isNullOrUndefined(user)) {
+          this.currentUser = this._authLogicService.getCurrentUserFromStorage();
+
+          this.currentPhoto = !isNullOrUndefined(user) && this.isPhotoUrlNull()
+            ? this.currentUser.photoUrl
+            : this.defaultPhotoUrl;
+
+        } else {
+          this.currentUser = user;
+
+          this.currentPhoto = this.isPhotoUrlNull()
+            ? this.currentUser.photoUrl
+            : this.defaultPhotoUrl;
+        }
       })
     );
   }
@@ -45,20 +56,21 @@ export class LoginComponent implements OnInit, OnDestroy, ILogin {
   }
 
   public login(): void {
-    console.log(this.photoUrl);
     this._authLogicService.login(this.userToLogin);
   }
 
   public loggedIn(): boolean {
-    this.username = this._authLogicService.getUsername();
-    this.currentUser = this._authLogicService.getCurrentUserFromStorage();
-    const loggedIn = this._authLogicService.loggedIn();
-    return loggedIn;
+    return this._authLogicService.loggedIn();
   }
 
   public logout(): void {
     this._authLogicService.logout();
-    this.currentUser = null;
+  }
+  /* #endregion */
+
+  /* region [PrivateMethods] */
+  private isPhotoUrlNull(): boolean {
+    return !isNullOrUndefined(this.currentUser.photoUrl) && this.currentUser.photoUrl !== '';
   }
   /* #endregion */
 }

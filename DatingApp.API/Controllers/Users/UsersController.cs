@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -34,7 +35,7 @@ namespace DatingApp.API.Controllers.Users
 
             if (string.IsNullOrEmpty(userParams.Gender))
             {
-                userParams.Gender = userFromRepo.gender == "male" ? "female" : "male";
+                userParams.Gender = userFromRepo.Gender == "male" ? "female" : "male";
             }
 
             var users = await _usersRepository.GetUsers(userParams);
@@ -49,9 +50,13 @@ namespace DatingApp.API.Controllers.Users
         public async Task<IActionResult> GetUser(int id)
         {
             var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-
             var user = await _usersRepository.GetUser(id, currentUserId);
             var userToReturn = _mapper.Map<UserForDetailDto>(user);
+
+            if (id != currentUserId)
+            {
+                userToReturn.Photos = userToReturn.Photos.Where(x => x.IsApproved).ToList();
+            }
 
             return Ok(userToReturn);
         }

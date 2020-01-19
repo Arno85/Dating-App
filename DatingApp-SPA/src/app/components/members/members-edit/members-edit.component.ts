@@ -4,7 +4,6 @@ import { Country } from 'src/app/models/country.model';
 import { User } from 'src/app/models/user.model';
 import { CountriesService } from 'src/app/services/countries/countries.service';
 import { UsersService } from 'src/app/services/users/users.service';
-import { AuthLogicService } from 'src/shared/services/auth/logic/auth-logic.service';
 import { NotificationsService } from 'src/shared/services/notifications/notifications.service';
 
 import {
@@ -12,6 +11,8 @@ import {
 } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { isNullOrUndefined } from 'util';
+import { AuthLogicService } from 'src/shared/services/auth/logic/auth-logic.service';
 
 @Component({
   selector: 'app-members-edit',
@@ -27,11 +28,12 @@ export class MembersEditComponent implements OnInit, OnDestroy {
   public countryList = new Observable<Country[]>();
   public bsConfig: Partial<BsDatepickerConfig>;
 
-  @ViewChild('editForm', {static: false}) public editForm: NgForm;
+  @ViewChild('editForm', { static: false }) public editForm: NgForm;
   /* #endregion */
 
   /* #region [PrivateProperties] */
   private _subscription = new Subscription();
+  private readonly defaultPhotoUrl = 'assets/img/user.png';
   /* #endregion */
 
   /* #region [PublicMethods] */
@@ -45,18 +47,25 @@ export class MembersEditComponent implements OnInit, OnDestroy {
   constructor(
     private _route: ActivatedRoute,
     private _notificationsService: NotificationsService,
-    private _userService: UsersService,
     private _authService: AuthLogicService,
+    private _userService: UsersService,
     private _countriesService: CountriesService
   ) { }
 
   public ngOnInit(): void {
     this._subscription.add(
-      this._route.data.subscribe(data => this.user = data['user'])
+      this._route.data.subscribe(data => {
+        this.user = data['user'];
+        this.user.dateOfBirth = new Date(this.user.dateOfBirth);
+      })
     );
 
     this._subscription.add(
-      this._authService.currentPhotoUrl.subscribe(photoUrl => this.currentPhotoUrl = photoUrl)
+      this._authService.currentUser.subscribe(user => {
+        this.currentPhotoUrl = !isNullOrUndefined(user) && !isNullOrUndefined(user.photoUrl) && user.photoUrl !== ''
+          ? user.photoUrl
+          : this.defaultPhotoUrl;
+      })
     );
 
     this._fetchCountries();
@@ -69,7 +78,7 @@ export class MembersEditComponent implements OnInit, OnDestroy {
 
   public updateUser(): void {
     this._subscription.add(
-      this._userService.updateUser(this.user.id, this.user).subscribe(next => {
+      this._userService.updateUser(this.user.id, this.user).subscribe(() => {
         this._notificationsService.success('Profile updated successfully');
         this.editForm.reset(this.user);
       }, error => {

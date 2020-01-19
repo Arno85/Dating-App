@@ -20,26 +20,33 @@ namespace DatingApp.API.Factories.TokenFactory
 
 		public TokenFactory(IConfiguration config)
 		{
-			_config = config;
+			this._config = config;
 		}
 
-		public void BuildToken(User user)
+		public void BuildToken(User user, IList<string> roles)
 		{
-			setToken(setClaims(user), setCredentials());
+			this.setToken(this.setClaims(user, roles), this.setCredentials());
 		}
 
 		public string GetToken()
 		{
-			return _token;
+			return this._token;
 		}
 
-		private Claim[] setClaims(User user)
+		private IEnumerable<Claim> setClaims(User user, IList<string> roles)
 		{
-			return new[]
+			var claims = new List<Claim>
 			{
 				new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-				new Claim(ClaimTypes.Name, user.Username)
+				new Claim(ClaimTypes.Name, user.UserName)
 			};
+
+			foreach (var role in roles)
+			{
+				claims.Add(new Claim(ClaimTypes.Role, role));
+			}
+
+			return claims;
 		}
 
 		private SigningCredentials setCredentials()
@@ -50,7 +57,7 @@ namespace DatingApp.API.Factories.TokenFactory
 			return new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 		}
 
-		private void setToken(Claim[] claims, SigningCredentials creds)
+		private void setToken(IEnumerable<Claim> claims, SigningCredentials creds)
 		{
 			var tokenDescriptor = new SecurityTokenDescriptor
 			{
@@ -62,7 +69,7 @@ namespace DatingApp.API.Factories.TokenFactory
 			var tokenHandler = new JwtSecurityTokenHandler();
 			var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            _token = tokenHandler.WriteToken(token);
+            this._token = tokenHandler.WriteToken(token);
 		}
 	}
 }

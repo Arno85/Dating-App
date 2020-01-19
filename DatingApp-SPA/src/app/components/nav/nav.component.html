@@ -1,40 +1,31 @@
-  <nav class="navbar navbar-expand-md navbar-dark bg-secondary">
+<nav class="navbar navbar-expand-md navbar-dark bg-secondary">
 
-    <div class="container-fluid mx-3">
-      <a class="navbar-brand"
-         [routerLink]="['/home']">{{ title }}</a>
-      <button class="navbar-toggler"
-              type="button"
-              data-toggle="collapse"
-              data-target="#navbarsExampleDefault"
-              aria-controls="navbarsExampleDefault"
-              aria-expanded="false"
-              aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+  <div class="container-fluid mx-3">
+    <a class="navbar-brand" [routerLink]="['/home']">{{ title }}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+      aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-      <div class="collapse navbar-collapse"
-           id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item"
-              routerLinkActive="active">
-            <a class="nav-link"
-               [routerLink]="['/members']">Matches</a>
-          </li>
-          <li class="nav-item"
-              routerLinkActive="active">
-            <a class="nav-link"
-               [routerLink]="['/lists']">Lists</a>
-          </li>
-          <li class="nav-item"
-              routerLinkActive="active">
-            <a class="nav-link"
-               [routerLink]="['/messages']">Messages</a>
-          </li>
-        </ul>
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
 
-        <app-login></app-login>
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [hidden]="!showLinks" [routerLink]="['/members']">Matches</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [hidden]="!showLinks" [routerLink]="['/likes']">Likes</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [hidden]="!showLinks" [routerLink]="['/messages']">Messages</a>
+        </li>
+        <li *appHasRole="['Admin', 'Moderator']" class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [hidden]="!showLinks" [routerLink]="['/admin']">Admin</a>
+        </li>
+      </ul>
 
-      </div>
+      <app-login></app-login>
+
     </div>
-  </nav>
+  </div>
+</nav>

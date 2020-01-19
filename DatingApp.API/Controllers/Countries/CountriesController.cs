@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
 using DatingApp.API.Dtos.Countries;
 using Microsoft.AspNetCore.Authorization;
@@ -37,7 +36,12 @@ namespace DatingApp.API.Controllers.Countries
 
             if (response.IsSuccessStatusCode)
             {
-                var results = await response.Content.ReadAsAsync<IEnumerable<CountryDto>>();
+                using var responseStream = await response.Content.ReadAsStreamAsync();
+                var results = await JsonSerializer.DeserializeAsync<IEnumerable<CountryDto>>(responseStream, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true,
+                });
+
                 return Ok(results);
             }
 

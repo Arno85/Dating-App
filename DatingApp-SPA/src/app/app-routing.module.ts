@@ -16,6 +16,7 @@ import { MemberDetailResolver } from './resolvers/member-detail.resolver';
 import { MemberEditResolver } from './resolvers/member-edit.resolver';
 import { MessagesResolver } from './resolvers/messages.resolver';
 import { ListResolver } from './resolvers/list.resolver';
+import { AdminComponent } from './components/admin/admin.component';
 
 const routes: Routes = [
   {
@@ -53,9 +54,14 @@ const routes: Routes = [
         resolve: { user: MemberDetailResolver }
       },
       {
-        path: 'lists',
+        path: 'likes',
         component: ListsComponent,
         resolve: { users: ListResolver }
+      },
+      {
+        path: 'admin',
+        component: AdminComponent,
+        data: { roles: ['Admin', 'Moderator'] }
       }
     ]
   },

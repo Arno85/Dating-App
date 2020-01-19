@@ -35,7 +35,7 @@
 
         <div class="card-footer">
           <div class="btn-group d-flex">
-            <button class="w-100" [ngClass]="user.isLikedByUser ? 'btn btn-secondary' : 'btn btn-primary'" [disabled]="user.isLikedByUser">Like</button>
+            <button class="w-100" [ngClass]="user.isLikedByUser ? 'btn btn-secondary' : 'btn btn-primary'" [disabled]="user.isLikedByUser" (click)="sendLike(user.id)">Like</button>
             <button class="btn btn-primary w-100" (click)="selectTab(3)">Message</button>
           </div>
         </div>

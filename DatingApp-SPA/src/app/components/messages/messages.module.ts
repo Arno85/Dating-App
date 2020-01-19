@@ -1,4 +1,4 @@
-import { ButtonsModule, PaginationModule } from 'ngx-bootstrap';
+import { ButtonsModule, PaginationModule, TooltipModule } from 'ngx-bootstrap';
 import { SharedModule } from 'src/app/components/shared.module';
 import { MessagesResolver } from 'src/app/resolvers/messages.resolver';
 import { UsersService } from 'src/app/services/users/users.service';
@@ -22,7 +22,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     SharedModule,
     PaginationModule.forRoot(),
     ButtonsModule.forRoot(),
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    TooltipModule.forRoot()
   ],
   providers: [
     UsersService,

@@ -35,6 +35,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
       this._route.data.subscribe(data => {
         this.messages = data['messages'].result;
         this.pagination = data['messages'].pagination;
+        this.isLoading = false;
       })
     );
   }

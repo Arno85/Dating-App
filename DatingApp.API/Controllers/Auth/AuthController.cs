@@ -11,6 +11,7 @@ using DatingApp.API.Factories.TokenFactory;
 using DatingApp.API.Models.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
@@ -25,13 +26,22 @@ namespace DatingApp.API.Controllers.Auth
         private readonly IConfiguration _config;
         private readonly ITokenFactory _tokenFactory;
         private readonly IMapper _mapper;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
 
-        public AuthController(IAuthRepository repo, ITokenFactory tokenFactory, IConfiguration config, IMapper mapper)
+        public AuthController(
+            IAuthRepository repo,
+            ITokenFactory tokenFactory,
+            IConfiguration config,
+            IMapper mapper,
+            UserManager<User> userManager, SignInManager<User> signInManager)
         {
-            _repo = repo;
-            _tokenFactory = tokenFactory;
-            _config = config;
-            _mapper = mapper;
+            this._repo = repo;
+            this._tokenFactory = tokenFactory;
+            this._config = config;
+            this._mapper = mapper;
+            this._userManager = userManager;
+            this._signInManager = signInManager;
         }
 
         [HttpGet("verifyEmail/{email}")]
@@ -63,45 +73,42 @@ namespace DatingApp.API.Controllers.Auth
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserForRegisterDto userForRegister)
         {
-            userForRegister.Username = userForRegister.Username.ToLower();
-            userForRegister.Email = userForRegister.Email.ToLower();
+            var userToCreate = this._mapper.Map<User>(userForRegister);
+            var result = await this._userManager.CreateAsync(userToCreate, userForRegister.Password);
+            var userTorReturn = this._mapper.Map<UserForDetailDto>(userToCreate);
 
-            if (await _repo.EmailExists(userForRegister.Email))
+            if (result.Succeeded)
             {
-                return BadRequest("There is already an existing account with this email");
+                return this.CreatedAtRoute("GetUser", new { controller = "Users", id = userToCreate.Id }, userTorReturn);
             }
 
-            if (await _repo.UsernameExists(userForRegister.Username))
-            {
-                return BadRequest("Username already exists");
-            }
-
-            var userToCreate = _mapper.Map<User>(userForRegister);
-            var createdUser = await _repo.Register(userToCreate, userForRegister.Password);
-            var userTorReturn = _mapper.Map<UserForDetailDto>(createdUser);
-
-            return this.CreatedAtRoute("GetUser", new { controller = "Users", id = createdUser.Id}, userTorReturn);
+            return BadRequest(result.Errors);
         }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLoginDto userForLogin)
         {
-            var userFromRepo = await _repo.Login(userForLogin.Username.ToLower(), userForLogin.Password);
-
-            if (userFromRepo == null)
+            var userFromDb = await this._userManager.FindByNameAsync(userForLogin.Username);
+            if (userFromDb == null)
             {
                 return Unauthorized();
             }
 
-            _tokenFactory.BuildToken(userFromRepo);
+            var result = await this._signInManager.CheckPasswordSignInAsync(userFromDb, userForLogin.Password, false);
+            if (!result.Succeeded)
+            {
+                return Unauthorized();
+            }
 
-            var user = _mapper.Map<UsersListDto>(userFromRepo);
+            var rolesFromDb = await this._userManager.GetRolesAsync(userFromDb);
+
+            this._tokenFactory.BuildToken(userFromDb, rolesFromDb);
+            var user = this._mapper.Map<UsersListDto>(userFromDb);
 
             return Ok(new
             {
-                token = _tokenFactory.GetToken(),
+                token = this._tokenFactory.GetToken(),
                 user = user
-
             });
         }
     }

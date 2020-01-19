@@ -3,10 +3,11 @@ import { User } from 'src/app/models/user.model';
 import { UsersService } from 'src/app/services/users/users.service';
 import { NotificationsService } from 'src/shared/services/notifications/notifications.service';
 
-import { Component, OnInit, ViewEncapsulation, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { TabsetComponent } from 'ngx-bootstrap';
+import { AuthLogicService } from 'src/shared/services/auth/logic/auth-logic.service';
 
 @Component({
   selector: 'app-members-detail',
@@ -14,7 +15,7 @@ import { TabsetComponent } from 'ngx-bootstrap';
   styleUrls: ['./members-detail.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class MembersDetailComponent implements OnInit, OnDestroy {
+export class MembersDetailComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @ViewChild('memberTabs', {static: false}) public memberTabs: TabsetComponent;
 
@@ -25,7 +26,10 @@ export class MembersDetailComponent implements OnInit, OnDestroy {
   private _subscriptions = new Subscription();
 
   constructor(
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private _userService: UsersService,
+    private _authSevice: AuthLogicService,
+    private _notificationsService: NotificationsService
   ) { }
 
   public ngOnInit(): void {
@@ -40,10 +44,17 @@ export class MembersDetailComponent implements OnInit, OnDestroy {
       })
     );
 
-    this._route.queryParams.subscribe(params => {
-      const selectedTab = params['tab'];
-      this.memberTabs.tabs[selectedTab > 0 ? selectedTab : 0].active = true;
-    });
+  }
+
+  public ngAfterViewInit(): void {
+    this._subscriptions.add(
+      this._route.queryParams.subscribe(params => {
+        const selectedTab = params['tab'];
+        setTimeout(() => {
+          this.memberTabs.tabs[selectedTab > 0 ? selectedTab : 0].active = true;
+        });
+      })
+    );
   }
 
   public ngOnDestroy(): void {
@@ -80,6 +91,17 @@ export class MembersDetailComponent implements OnInit, OnDestroy {
 
   public selectTab(tabId: number): void {
     this.memberTabs.tabs[tabId].active = true;
+  }
+
+  public sendLike(id: number): void {
+    this._subscriptions.add(
+      this._userService.sendLike(this._authSevice.getUserId(), id).subscribe(res => {
+        this._notificationsService.success(`You have liked ${this.user.knownAs}`);
+        this.user.isLikedByUser = true;
+      }, error => {
+        this._notificationsService.error(error);
+      })
+    );
   }
 
 }

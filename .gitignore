@@ -6,3 +6,4 @@ DatingApp.API/bin/
 DatingApp-SPA/package-lock.json
 
 DatingApp.API/wwwroot/
+.vscode/
