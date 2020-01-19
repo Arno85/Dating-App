@@ -18,11 +18,15 @@ import { MembersModule } from './components/members/members.module';
 import { MessagesModule } from './components/messages/messages.module';
 import { NavModule } from './components/nav/nav.module';
 import { RegisterModule } from './components/register/register.module';
+import { AdminModule } from './components/admin/admin.module';
 
 export function tokenGetter() {
   const storageService = new StorageService();
   if (!environment.production) {
-    console.log(`TOKEN : ${storageService.getItemFromLocalStorage('token')}`);
+    const token = storageService.getItemFromLocalStorage('token');
+    if (token !== null) {
+      console.log(`TOKEN : ${token}`);
+    }
   }
   return storageService.getItemFromLocalStorage('token');
 }
@@ -48,7 +52,8 @@ export function tokenGetter() {
     RegisterModule,
     MembersModule,
     ListsModule,
-    MessagesModule
+    MessagesModule,
+    AdminModule
   ],
   providers: [
     errorInterceptorProvider,

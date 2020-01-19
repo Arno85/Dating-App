@@ -35,8 +35,6 @@ export class MessagesService {
       params = params.append('pageSize', itemsPerPage.toString());
     }
 
-    console.log(params);
-
     return this._http.get<Message[]>(`${this._apiUrl}${this._controller}${userId}/messages/`, { observe: 'response', params })
       .pipe(
         map(response => {
@@ -67,4 +65,5 @@ export class MessagesService {
     return this._http.post<void>(`${this._apiUrl}${this._controller}${userId}/messages/${messageId}/read`, {});
   }
 
+  /* #endregion */
 }

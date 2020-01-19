@@ -17,10 +17,11 @@ namespace DatingApp.API.Data.UsersRepository
         public async Task<User> GetUser(int id, int currentUserId = 0)
         {
             var user = await _context.Users
+                .Include(p => p.Photos)
                 .FirstOrDefaultAsync(u => u.Id == id);
 
             setIsLikedByUser(user, currentUserId);
-
+            
             return user;
         }
 
@@ -37,7 +38,7 @@ namespace DatingApp.API.Data.UsersRepository
                 .AsQueryable();
 
             usersFromDb = usersFromDb.Where(u => u.Id != userParams.UserId);
-            usersFromDb = usersFromDb.Where(u => u.gender == userParams.Gender);
+            usersFromDb = usersFromDb.Where(u => u.Gender == userParams.Gender);
 
             if (userParams.Likees)
             {
@@ -101,6 +102,8 @@ namespace DatingApp.API.Data.UsersRepository
         public async Task<Message> GetMessage(int id)
         {
             return await _context.Messages
+                .Include(x => x.Sender)
+                .Include(x => x.Recipient)
                 .FirstOrDefaultAsync(m => m.Id == id);
         }
 

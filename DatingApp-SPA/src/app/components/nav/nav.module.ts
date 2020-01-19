@@ -9,13 +9,15 @@ import { RouterModule } from '@angular/router';
 
 import { LoginComponent } from './login/login.component';
 import { NavComponent } from './nav.component';
+import { AdminModule } from '../admin/admin.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     RouterModule,
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
+    AdminModule
   ],
   declarations: [
     NavComponent,

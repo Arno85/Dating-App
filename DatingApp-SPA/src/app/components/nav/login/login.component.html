@@ -4,12 +4,12 @@
        class="dropdown"
        dropdown>
     <span class="mr-1">
-      <img [src]="photoUrl"
-           [alt]="photoUrl">
+      <img [src]="currentPhoto"
+           [alt]="currentPhoto">
     </span>
     <a class="dropdown-toggle text-light"
        dropdownToggle>
-      Welcome {{ username | titlecase}}
+      Welcome {{ currentUser.username | titlecase}}
     </a>
     <div class="dropdown-menu mt-3"
          *dropdownMenu>

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -11,7 +9,6 @@ using DatingApp.API.Data.UsersRepository;
 using DatingApp.API.Dtos.Photos;
 using DatingApp.API.Helpers;
 using DatingApp.API.Models.Users;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -68,6 +65,7 @@ namespace DatingApp.API.Controllers.Users
 
             var photo = _mapper.Map<Photo>(photoForCreationDto);
             photo.UserId = userFromRepo.Id;
+            photo.IsApproved = false;
 
             if (!userFromRepo.Photos.Any(u => u.IsMain))
             {
@@ -78,7 +76,7 @@ namespace DatingApp.API.Controllers.Users
 
             if (await _photosRepository.SaveAll())
             {
-                return CreatedAtRoute("GetPhoto", new { photoId = photo.Id }, _mapper.Map<PhotoForReturnDto>(photo));
+                return CreatedAtRoute("GetPhoto", new { id, photoId = photo.Id }, _mapper.Map<PhotoForReturnDto>(photo));
             }
 
             return BadRequest("Could not add the photo");
@@ -92,24 +90,22 @@ namespace DatingApp.API.Controllers.Users
                 return Unauthorized();
             }
 
-            var userFromRepo = _usersRepository.GetUser(id);
-            var photoFromRepo = _photosRepository.GetPhoto(photoId);
-            await Task.WhenAll(userFromRepo, photoFromRepo);
+            var userFromRepo = await this._usersRepository.GetUser(id);
+            var photoFromRepo = userFromRepo.Photos.Single(p => p.Id == photoId);
+            var currentMainPhoto = userFromRepo.Photos.Single(p => p.IsMain);
 
-            var currentMainPhoto = userFromRepo.Result.Photos.Where(p => p.IsMain).FirstOrDefault();
-
-            if (!checkIfPhotoExists(photoId, userFromRepo.Result))
+            if (!checkIfPhotoExists(photoId, userFromRepo))
             {
                 return Unauthorized();
             }
 
-            if (photoFromRepo.Result.IsMain)
+            if (photoFromRepo.IsMain)
             {
                 return BadRequest("This is already the main photo");
             }
 
             currentMainPhoto.IsMain = false;
-            photoFromRepo.Result.IsMain = true;
+            photoFromRepo.IsMain = true;
 
             if (await _photosRepository.SaveAll())
             {

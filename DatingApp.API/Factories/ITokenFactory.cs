@@ -11,7 +11,7 @@ namespace DatingApp.API.Factories.TokenFactory
 {
 	public interface ITokenFactory
 	{
-		void BuildToken(User user);
+		void BuildToken(User user, IList<string> roles);
 
 		string GetToken();
 	}

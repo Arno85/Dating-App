@@ -17,16 +17,17 @@ import { User } from 'src/app/models/user.model';
 })
 export class AuthLogicService implements ILogin, IRegister {
 
-  /* #region [PublicProperties] */
-  public registered = new BehaviorSubject<boolean>(false);
-  /* #endregion */
-
   /* #region [PrivateProperties] */
   private _username = '';
+  private _userRoles = new Array<string>();
   private _userId = null;
   private _jwtHelperService: JwtHelperService = new JwtHelperService();
-  private _photoUrl = new BehaviorSubject<string>('');
-  public currentPhotoUrl = this._photoUrl.asObservable();
+  private _userLoggedIn = new BehaviorSubject<User>(this.getCurrentUserFromStorage());
+  /* #endregion */
+
+  /* #region [PublicProperties] */
+  public registered = new BehaviorSubject<boolean>(false);
+  public currentUser = this._userLoggedIn.asObservable();
   /* #endregion */
 
   /* #region [PublicMethods] */
@@ -42,10 +43,11 @@ export class AuthLogicService implements ILogin, IRegister {
       // Set token in Local Storage
       this._storageService.setItemToLocalStorage('token', response.token);
       // Set user info in Local Storage
-      this._setCurrentUserInStorage(response.user);
+      this._storageService.setItemToLocalStorage('user', JSON.stringify(response.user));
+      // Emit event for nav, login, etc
+      this._userLoggedIn.next(response.user);
       // Navigate to members page
       this._router.navigate(['/members']);
-      this._photoUrl.next(response.user.photoUrl);
     }, (error: string) => {
       this._notificationsService.error(error);
     });
@@ -54,6 +56,7 @@ export class AuthLogicService implements ILogin, IRegister {
   public logout(): void {
     this._storageService.removeItemFromLocalStorage('token');
     this._storageService.removeItemFromLocalStorage('user');
+    this._userLoggedIn.next(null);
     this._router.navigate(['']);
   }
 
@@ -93,6 +96,16 @@ export class AuthLogicService implements ILogin, IRegister {
     return Number(this._userId);
   }
 
+  public getRoles(): string[] {
+    const token = this._storageService.getItemFromLocalStorage('token');
+    const decodedToken = this._jwtHelperService.decodeToken(token);
+
+    if (decodedToken) {
+      this._userRoles = decodedToken.role;
+    }
+    return this._userRoles;
+  }
+
   public getToken(): string {
     const token = this._storageService.getItemFromLocalStorage('token');
     return `Bearer ${token}`;
@@ -104,10 +117,10 @@ export class AuthLogicService implements ILogin, IRegister {
   }
 
   public changeMemberPhoto(photoUrl: string): void {
-    this._photoUrl.next(photoUrl);
-    const user: User = this.getCurrentUserFromStorage();
+    const user: User = JSON.parse(this._storageService.getItemFromLocalStorage('user'));
     user.photoUrl = photoUrl;
-    this._setCurrentUserInStorage(user);
+    this._storageService.setItemToLocalStorage('user', JSON.stringify(user));
+    this._userLoggedIn.next(user);
   }
 
   public verifyEmail(email: string): Observable<boolean> {
@@ -117,13 +130,19 @@ export class AuthLogicService implements ILogin, IRegister {
   public verifyUsername(username: string): Observable<boolean> {
     return this._authDataService.verifyUsername(username);
   }
-  /* #endregion */
 
-  /* #region [PrivateMethods] */
+  public roleMatch(allowedRoles: string[]): boolean {
+    let isMatch = false;
+    const userRoles = this.getRoles();
 
-  private _setCurrentUserInStorage(user: User): void {
-    this._storageService.setItemToLocalStorage('user', JSON.stringify(user));
+    allowedRoles.forEach(element => {
+      if (userRoles.includes(element)) {
+        isMatch = true;
+        return;
+      }
+    });
+
+    return isMatch;
   }
-
   /* #endregion */
 }

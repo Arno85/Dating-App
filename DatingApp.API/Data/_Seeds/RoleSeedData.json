@@ -1,0 +1,14 @@
+[
+    {
+        "Name": "Member"
+    },
+    {
+        "Name": "Admin"
+    },
+    {
+        "Name": "Moderator"
+    },
+    {
+        "Name": "VIP"
+    }
+]

@@ -1,0 +1,15 @@
+<div class="row mt-2">
+  <div class="col-lg- col-md-3 col-sm-4" *ngFor="let photo of photos">
+    <div class="card mb-4">
+        <div class="card-img-wrapper">
+          <img [src]="photo.url" [alt]="photo.url" class="card-img-top">
+        </div>
+      <div class="card-footer">
+        <div class="btn-group d-flex">
+          <button class="btn btn-primary w-100" (click)="moderatePhoto(true, photo.id)">Accept</button>
+          <button class="btn btn-danger w-100" (click)="moderatePhoto(false, photo.id)">Reject</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

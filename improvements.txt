@@ -1,5 +1,7 @@
+- Improve slow SQL request user with roles admin section
+- Improve and investiguate performances every db requests.
+- Notifications for likes, messages unread, photos for moderation.
 - Responsive design (fe)
 - is-valid & is-invalid inside form fields register (fe)
-- date of birth min 18y
 - Add "Interested in" (male / female) in register, profile and edit.
 - bilingual (FR / EN)
